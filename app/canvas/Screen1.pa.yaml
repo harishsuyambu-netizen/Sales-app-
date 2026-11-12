@@ -1,0 +1,925 @@
+Screens:
+  Screen1:
+    Properties:
+      Fill: =cCanvas
+      OnVisible: =Set(varNavKey, 1)
+    Children:
+      - conDashRoot:
+          Control: GroupContainer
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =cCanvas
+            Height: =Parent.Height
+            Width: =Parent.Width
+          Children:
+            - shpDashAccent:
+                Control: Image
+                Properties:
+                  Height: =5
+                  Image: =cAccentSvg
+                  ImagePosition: =ImagePosition.Stretch
+                  Width: =Parent.Width
+            - conDashViewport:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =cCanvas
+                  Height: =Parent.Height - 5
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  Width: =Parent.Width
+                  Y: =5
+                Children:
+                  - conDashPage:
+                      Control: GroupContainer
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =cCanvas
+                        FillPortions: =0
+                        Height: =If(App.Width < 900, 1460, Parent.Height)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Width: =Parent.Width
+                      Children:
+                        - lblDashTitle:
+                            Control: Label
+                            Properties:
+                              Color: =cText
+                              Fill: =cCanvas
+                              Font: =cFont
+                              FontWeight: =FontWeight.Bold
+                              Height: =38
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =26
+                              Text: ="Sales dashboard"
+                              Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =If(App.Width < 900, 68, 28)
+                        - lblDashSubtitle:
+                            Control: Label
+                            Properties:
+                              Color: =cMuted
+                              Fill: =cCanvas
+                              Font: =cFont
+                              Height: =22
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Text: ="Pipeline, leads and what to do today"
+                              Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =If(App.Width < 900, 102, 62)
+                        - conDashKpi1:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              Fill: =cBlue
+                              Height: =92
+                              RadiusBottomLeft: =14
+                              RadiusBottomRight: =14
+                              RadiusTopLeft: =14
+                              RadiusTopRight: =14
+                              Width: =If(App.Width < 900, Parent.Width - 32, (Parent.Width - 178) / 4)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =If(App.Width < 900, 136, 106)
+                            Children:
+                              - lblDashKpi1Label:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cWhite
+                                    Fill: =cBlue
+                                    Font: =cFont
+                                    Height: =20
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: ="Open pipeline"
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =10
+                              - lblDashKpi1Value:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cWhite
+                                    Fill: =cBlue
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =34
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =25
+                                    Text: =FmtINR(Sum(Filter(colDeals, Stage <> "Won"), Value))
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =30
+                              - lblDashKpi1Sub:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cWhite
+                                    Fill: =cBlue
+                                    Font: =cFont
+                                    Height: =18
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: =CountRows(Filter(colDeals, Stage <> "Won")) & " open deals"
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =64
+                        - conDashKpi2:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              BorderColor: =cBorder
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =cWhite
+                              Height: =92
+                              RadiusBottomLeft: =14
+                              RadiusBottomRight: =14
+                              RadiusTopLeft: =14
+                              RadiusTopRight: =14
+                              Width: =If(App.Width < 900, Parent.Width - 32, (Parent.Width - 178) / 4)
+                              X: =If(App.Width < 900, 16, 124 + (Parent.Width - 178) / 4 + 14)
+                              Y: =If(App.Width < 900, 236, 106)
+                            Children:
+                              - lblDashKpi2Label:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cMuted
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    Height: =20
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: ="Weighted forecast"
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =10
+                              - lblDashKpi2Value:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cText
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =34
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =25
+                                    Text: =FmtINR(Sum(Filter(colDeals, Stage <> "Won"), Value * Switch(Stage, "Qualified", 0.3, "Proposal", 0.5, "Negotiation", 0.75, 0)))
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =30
+                              - lblDashKpi2Sub:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cBlue
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    Height: =18
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: ="Value x win chance"
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =64
+                        - conDashKpi3:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              BorderColor: =cBorder
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =cWhite
+                              Height: =92
+                              RadiusBottomLeft: =14
+                              RadiusBottomRight: =14
+                              RadiusTopLeft: =14
+                              RadiusTopRight: =14
+                              Width: =If(App.Width < 900, Parent.Width - 32, (Parent.Width - 178) / 4)
+                              X: =If(App.Width < 900, 16, 124 + 2 * ((Parent.Width - 178) / 4 + 14))
+                              Y: =If(App.Width < 900, 336, 106)
+                            Children:
+                              - lblDashKpi3Label:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cMuted
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    Height: =20
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: ="Won revenue"
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =10
+                              - lblDashKpi3Value:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cText
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =34
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =25
+                                    Text: =FmtINR(Sum(Filter(colDeals, Stage = "Won"), Value))
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =30
+                              - lblDashKpi3Sub:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cGreen
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    Height: =18
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: =CountRows(Filter(colDeals, Stage = "Won")) & " deals closed"
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =64
+                        - conDashKpi4:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              BorderColor: =cBorder
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =cWhite
+                              Height: =92
+                              RadiusBottomLeft: =14
+                              RadiusBottomRight: =14
+                              RadiusTopLeft: =14
+                              RadiusTopRight: =14
+                              Width: =If(App.Width < 900, Parent.Width - 32, (Parent.Width - 178) / 4)
+                              X: =If(App.Width < 900, 16, 124 + 3 * ((Parent.Width - 178) / 4 + 14))
+                              Y: =If(App.Width < 900, 436, 106)
+                            Children:
+                              - lblDashKpi4Label:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cMuted
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    Height: =20
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: ="Lead conversion"
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =10
+                              - lblDashKpi4Value:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cText
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =34
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =25
+                                    Text: =Text(Round(CountRows(Filter(colLeads, Status = "Converted")) / CountRows(colLeads) * 100, 0), "0") & "%"
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =30
+                              - lblDashKpi4Sub:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cBlue
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    Height: =18
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =11
+                                    Text: =CountRows(Filter(colLeads, Status = "New")) & " new leads waiting"
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =64
+                        - conDashStageCard:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              BorderColor: =cBorder
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =cWhite
+                              Height: =220
+                              RadiusBottomLeft: =14
+                              RadiusBottomRight: =14
+                              RadiusTopLeft: =14
+                              RadiusTopRight: =14
+                              Width: =If(App.Width < 900, Parent.Width - 32, (Parent.Width - 178) * 0.58)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =If(App.Width < 900, 540, 214)
+                            Children:
+                              - lblDashStageHeading:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cText
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =23
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =15
+                                    Text: ="Pipeline by stage | Deals and value"
+                                    Width: =Parent.Width - 36
+                                    X: =18
+                                    Y: =12
+                              - galDashStages:
+                                  Control: Gallery
+                                  Variant: Vertical
+                                  Properties:
+                                    AccessibleLabel: ="Pipeline totals by stage"
+                                    Fill: =cWhite
+                                    Height: =166
+                                    Items: =Table({Stage:"Qualified"}, {Stage:"Proposal"}, {Stage:"Negotiation"}, {Stage:"Won"})
+                                    Selectable: =false
+                                    ShowScrollbar: =false
+                                    TemplateFill: =cWhite
+                                    TemplatePadding: =2
+                                    TemplateSize: =39
+                                    Width: =Parent.Width - 36
+                                    X: =18
+                                    Y: =42
+                                  Children:
+                                    - lblDashStageName:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cText
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: =ThisItem.Stage
+                                          Width: =Parent.TemplateWidth * 0.38
+                                    - lblDashStageValue:
+                                        Control: Label
+                                        Properties:
+                                          Align: =Align.Right
+                                          Color: =cMuted
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          Height: =18
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: =CountRows(Filter(colDeals, Stage = ThisItem.Stage)) & " deals | " & FmtINR(Sum(Filter(colDeals, Stage = ThisItem.Stage), Value))
+                                          Width: =Parent.TemplateWidth * 0.62
+                                          X: =Parent.TemplateWidth * 0.38
+                                    - shpDashStageTrack:
+                                        Control: Rectangle
+                                        Properties:
+                                          Fill: =cPanel
+                                          Height: =10
+                                          Width: =Parent.TemplateWidth
+                                          Y: =22
+                                    - shpDashStageBar:
+                                        Control: Rectangle
+                                        Properties:
+                                          Fill: =Switch(ThisItem.Stage, "Qualified", cStageQualified, "Proposal", cStageProposal, "Negotiation", cStageNegotiation, cStageWon)
+                                          Height: =10
+                                          Width: =Parent.TemplateWidth * Sum(Filter(colDeals, Stage = ThisItem.Stage), Value) / Max(1, Max(Sum(Filter(colDeals, Stage = "Qualified"), Value), Sum(Filter(colDeals, Stage = "Proposal"), Value), Sum(Filter(colDeals, Stage = "Negotiation"), Value), Sum(Filter(colDeals, Stage = "Won"), Value)))
+                                          Y: =22
+                        - conDashSourceCard:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              BorderColor: =cBorder
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =cWhite
+                              Height: =220
+                              RadiusBottomLeft: =14
+                              RadiusBottomRight: =14
+                              RadiusTopLeft: =14
+                              RadiusTopRight: =14
+                              Width: =If(App.Width < 900, Parent.Width - 32, (Parent.Width - 178) * 0.42 - 14)
+                              X: =If(App.Width < 900, 16, 124 + (Parent.Width - 178) * 0.58 + 14)
+                              Y: =If(App.Width < 900, 772, 214)
+                            Children:
+                              - lblDashSourceHeading:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cText
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =23
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =15
+                                    Text: ="Leads by source"
+                                    Width: =Parent.Width - 36
+                                    X: =18
+                                    Y: =12
+                              - galDashSources:
+                                  Control: Gallery
+                                  Variant: Vertical
+                                  Properties:
+                                    AccessibleLabel: ="Lead counts by source"
+                                    Fill: =cWhite
+                                    Height: =166
+                                    Items: =SortByColumns(AddColumns(Distinct(colLeads, Source) As sourceRow, LeadCount, CountRows(Filter(colLeads As leadRow, leadRow.Source = sourceRow.Value))), "LeadCount", SortOrder.Descending)
+                                    Selectable: =false
+                                    ShowScrollbar: =false
+                                    TemplateFill: =cWhite
+                                    TemplatePadding: =2
+                                    TemplateSize: =39
+                                    Width: =Parent.Width - 36
+                                    X: =18
+                                    Y: =42
+                                  Children:
+                                    - lblDashSourceName:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cText
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =18
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: =ThisItem.Value
+                                          Width: =Parent.TemplateWidth * 0.65
+                                    - lblDashSourceCount:
+                                        Control: Label
+                                        Properties:
+                                          Align: =Align.Right
+                                          Color: =cMuted
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          Height: =18
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: =CountRows(Filter(colLeads, Source = ThisItem.Value))
+                                          Width: =Parent.TemplateWidth * 0.35
+                                          X: =Parent.TemplateWidth * 0.65
+                                    - shpDashSourceTrack:
+                                        Control: Rectangle
+                                        Properties:
+                                          Fill: =cPanel
+                                          Height: =10
+                                          Width: =Parent.TemplateWidth
+                                          Y: =22
+                                    - shpDashSourceBar:
+                                        Control: Rectangle
+                                        Properties:
+                                          Fill: =cTeal
+                                          Height: =10
+                                          Width: =Parent.TemplateWidth * CountRows(Filter(colLeads, Source = ThisItem.Value)) / Max(1, Max(AddColumns(Distinct(colLeads, Source) As sourceRow, Cnt, CountRows(Filter(colLeads As leadRow, leadRow.Source = sourceRow.Value))), Cnt))
+                                          Y: =22
+                        - conDashActivityCard:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              BorderColor: =cBorder
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =cWhite
+                              Height: =220
+                              RadiusBottomLeft: =14
+                              RadiusBottomRight: =14
+                              RadiusTopLeft: =14
+                              RadiusTopRight: =14
+                              Width: =If(App.Width < 900, Parent.Width - 32, (Parent.Width - 178) * 0.58)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =If(App.Width < 900, 1004, 448)
+                            Children:
+                              - lblDashActivityHeading:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cText
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =24
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =15
+                                    Text: ="Today's activities | " & CountRows(Filter(colActivities, DueGroup = "Today", !Done)) & " to do"
+                                    Width: =Parent.Width - 36
+                                    X: =18
+                                    Y: =12
+                              - galDashActivities:
+                                  Control: Gallery
+                                  Variant: Vertical
+                                  Properties:
+                                    AccessibleLabel: ="Today's incomplete activities"
+                                    Fill: =cWhite
+                                    Height: =166
+                                    Items: =Filter(colActivities, DueGroup = "Today", !Done)
+                                    Selectable: =false
+                                    ShowScrollbar: =false
+                                    TemplateFill: =cWhite
+                                    TemplatePadding: =2
+                                    TemplateSize: =48
+                                    Width: =Parent.Width - 36
+                                    X: =18
+                                    Y: =42
+                                  Children:
+                                    - lblDashActivityTitle:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cText
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =21
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Text: =ThisItem.Title
+                                          Width: =Parent.TemplateWidth - 4
+                                          Y: =2
+                                    - lblDashActivityDetails:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cMuted
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          Height: =18
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =11
+                                          Text: =ThisItem.Company & " | " & ThisItem.Time
+                                          Width: =Parent.TemplateWidth - 4
+                                          Y: =24
+                        - lblDashActivityEmpty:
+                            Control: Label
+                            Properties:
+                              Align: =Align.Center
+                              Color: =cMuted
+                              Fill: =cWhite
+                              Font: =cFont
+                              Height: =34
+                              Live: =Live.Polite
+                              Text: ="All clear for today."
+                              Visible: =galDashActivities.AllItemsCount = 0
+                              Width: =If(App.Width < 900, Parent.Width - 68, (Parent.Width - 178) * 0.58 - 36)
+                              X: =If(App.Width < 900, 34, 142)
+                              Y: =If(App.Width < 900, 1066, 526)
+                        - conDashTopDealsCard:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              BorderColor: =cBorder
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =cWhite
+                              Height: =220
+                              RadiusBottomLeft: =14
+                              RadiusBottomRight: =14
+                              RadiusTopLeft: =14
+                              RadiusTopRight: =14
+                              Width: =If(App.Width < 900, Parent.Width - 32, (Parent.Width - 178) * 0.42 - 14)
+                              X: =If(App.Width < 900, 16, 124 + (Parent.Width - 178) * 0.58 + 14)
+                              Y: =If(App.Width < 900, 1236, 448)
+                            Children:
+                              - lblDashTopDealsHeading:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cText
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =24
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =15
+                                    Text: ="Top open deals"
+                                    Width: =Parent.Width - 36
+                                    X: =18
+                                    Y: =12
+                              - galDashTopDeals:
+                                  Control: Gallery
+                                  Variant: Vertical
+                                  Properties:
+                                    AccessibleLabel: ="Four highest value open deals"
+                                    Fill: =cWhite
+                                    Height: =166
+                                    Items: =FirstN(SortByColumns(Filter(colDeals, Stage <> "Won"), "Value", SortOrder.Descending), 4)
+                                    Selectable: =false
+                                    ShowScrollbar: =false
+                                    TemplateFill: =cWhite
+                                    TemplatePadding: =2
+                                    TemplateSize: =39
+                                    Width: =Parent.Width - 36
+                                    X: =18
+                                    Y: =42
+                                  Children:
+                                    - lblDashTopDealName:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cText
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =19
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: =ThisItem.Name
+                                          Width: =Parent.TemplateWidth * 0.65
+                                    - lblDashTopDealValue:
+                                        Control: Label
+                                        Properties:
+                                          Align: =Align.Right
+                                          Color: =cBlue
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =19
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: =FmtINR(ThisItem.Value)
+                                          Width: =Parent.TemplateWidth * 0.35
+                                          X: =Parent.TemplateWidth * 0.65
+                                    - lblDashTopDealDetails:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cMuted
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          Height: =16
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =10
+                                          Text: =ThisItem.Owner & " | " & ThisItem.Company & " | " & ThisItem.Stage
+                                          Width: =Parent.TemplateWidth
+                                          Y: =20
+            - shpDashRail:
+                Control: Rectangle
+                Properties:
+                  Fill: =cNavy
+                  Height: =Parent.Height - 5
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 0, 98)
+                  Y: =5
+            - shpDashMobileNav:
+                Control: Rectangle
+                Properties:
+                  Fill: =cNavy
+                  Height: =56
+                  Visible: =App.Width < 900
+                  Width: =Parent.Width
+                  Y: =5
+            - imgDashLogo:
+                Control: Image
+                Properties:
+                  AccessibleLabel: ="CRM logo"
+                  Height: =54
+                  Image: =cLogoSvg
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =54
+                  X: =If(App.Width < 900, 12, 20)
+                  Y: =If(App.Width < 900, 12, 22)
+            - galDashMobileNav:
+                Control: Gallery
+                Variant: Horizontal
+                Properties:
+                  AccessibleLabel: ="Main navigation"
+                  Height: =46
+                  Items: =Table({Key:1, Caption:"Dashboard"}, {Key:2, Caption:"Leads"}, {Key:3, Caption:"Pipeline"}, {Key:4, Caption:"Contacts"}, {Key:5, Caption:"Activities"})
+                  Selectable: =false
+                  ShowScrollbar: =false
+                  TabIndex: =0
+                  TemplatePadding: =2
+                  TemplateSize: =84
+                  Visible: =App.Width < 900
+                  Width: =Parent.Width - 70
+                  X: =66
+                  Y: =10
+                Children:
+                  - btnDashMobileNavItem:
+                      Control: Classic/Button
+                      Properties:
+                        BorderThickness: =0
+                        Color: =If(varNavKey = ThisItem.Key, cBlue, cWhite)
+                        Fill: =If(varNavKey = ThisItem.Key, cWhite, cNavy)
+                        Font: =cFont
+                        OnSelect: =Set(varNavKey, ThisItem.Key); Switch(ThisItem.Key, 1, Navigate(Screen1, ScreenTransition.None), 2, Navigate(scrLeads, ScreenTransition.None), 3, Navigate(scrPipeline, ScreenTransition.None), 4, Navigate(scrContacts, ScreenTransition.None), 5, Navigate(scrActivities, ScreenTransition.None))
+                        RadiusBottomLeft: =14
+                        RadiusBottomRight: =14
+                        RadiusTopLeft: =14
+                        RadiusTopRight: =14
+                        Size: =10
+                        Text: =ThisItem.Caption
+                        Width: =Parent.TemplateWidth - 4
+                        Y: =2
+            - btnDashNavDashboard:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cBlue
+                  Fill: =cWhite
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(Screen1, ScreenTransition.None)
+                  PaddingBottom: =2
+                  PaddingLeft: =2
+                  PaddingRight: =2
+                  PaddingTop: =2
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Dashboard"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 80, 82)
+                  X: =If(App.Width < 900, 12, 8)
+                  Y: =If(App.Width < 900, 12, 92)
+            - btnDashNavLeads:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrLeads, ScreenTransition.None)
+                  PaddingBottom: =2
+                  PaddingLeft: =2
+                  PaddingRight: =2
+                  PaddingTop: =2
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Leads"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 70, 82)
+                  X: =If(App.Width < 900, 96, 8)
+                  Y: =If(App.Width < 900, 12, 154)
+            - btnDashNavPipeline:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrPipeline, ScreenTransition.None)
+                  PaddingBottom: =2
+                  PaddingLeft: =2
+                  PaddingRight: =2
+                  PaddingTop: =2
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Pipeline"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 76, 82)
+                  X: =If(App.Width < 900, 170, 8)
+                  Y: =If(App.Width < 900, 12, 216)
+            - btnDashNavContacts:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrContacts, ScreenTransition.None)
+                  PaddingBottom: =2
+                  PaddingLeft: =2
+                  PaddingRight: =2
+                  PaddingTop: =2
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Contacts"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 76, 82)
+                  X: =If(App.Width < 900, 250, 8)
+                  Y: =If(App.Width < 900, 12, 278)
+            - btnDashNavActivities:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrActivities, ScreenTransition.None)
+                  PaddingBottom: =2
+                  PaddingLeft: =2
+                  PaddingRight: =2
+                  PaddingTop: =2
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Activities"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 82, 82)
+                  X: =If(App.Width < 900, 330, 8)
+                  Y: =If(App.Width < 900, 12, 340)
+            - lblDashToast:
+                Control: Label
+                Properties:
+                  Align: =Align.Center
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  FontWeight: =FontWeight.Semibold
+                  Live: =Live.Polite
+                  PaddingBottom: =4
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =4
+                  Text: =varToast
+                  Visible: =!IsBlank(varToast)
+                  Width: =320
+                  X: =(Parent.Width - 320) / 2
+                  Y: =Parent.Height - 56
+            - tmrDashToast:
+                Control: Timer
+                Properties:
+                  Duration: =2200
+                  Height: =1
+                  OnTimerEnd: =Set(varToast, "")
+                  Start: =!IsBlank(varToast)
+                  Visible: =false
+                  Width: =1

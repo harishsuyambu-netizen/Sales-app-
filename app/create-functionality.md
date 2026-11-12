@@ -1,0 +1,40 @@
+Revision: 1
+
+Inputs:
+- Original request (verbatim): “create standalone native B2B sales CRM matching C:\Users\Hsuyambu\Downloads\Sales CRM.html; all source details captured in D:\CRM\spec.md. Constraints: 5 named screens Dashboard, Leads, Pipeline, Contacts, Activities; local seed collections only, no external data sources; native Canvas/Power Fx; design tokens exact; tablet 1366x768; user explicitly asked proceed without waiting, but do not implement YAML or decide controls.”
+- Source detail: `D:\CRM\spec.md` (Sales CRM Canvas App Specification).
+
+Users and domain:
+- A sales team member uses the app to review sales performance, qualify leads, manage deal progress, look up contacts, and track follow-up work. Sample owner initials identify record owners; no role or identity configuration is requested.
+- Domain records are leads, deals, contacts, and activities. The supplied sample records and initial values are specified in `D:\CRM\spec.md`.
+- Data and persistence: use only the requested local seeded data, with no external data sources. The app must reflect user changes across its views while running. Persistence beyond the current app run is unspecified.
+
+Requirements:
+- **R1 — Sales overview:** Show open deal value and count, weighted forecast (deal value multiplied by stage win chance), won revenue and closed-deal count, and lead conversion percentage (Converted leads divided by all leads, rounded to a whole percent) and New-lead count. Show per-stage deal count/value and proportional value bars for Qualified, Proposal, Negotiation, and Won; lead-source counts sorted from highest to lowest with proportional bars; the count of incomplete activities due Today and their type, title, company, and time; and up to four highest-value open deals with owner initials, name, company, stage, and value. If there are no activities due Today, show `All clear for today.` Use the specified Indian currency formatting.
+- **R2 — Lead review:** Let the user view leads with name, company, source, score, value, status, and an available action. Filter by All, New, Contacted, Qualified, Converted, or Lost; search name or company without case sensitivity. Show `No leads match.` when no records meet the current criteria.
+- **R3 — Lead creation:** Collect name, company, source (Website, Referral, LinkedIn, Trade show, or Cold call), and an expected value of zero or more. A save without both name and company must show `Enter a name and company` and make no record. A valid save creates a New lead with score 60, the selected source, entered value (or zero), and owner `AK`; then clear the entry, reset the filter to All, refresh affected information, and show `Lead added`. Cancel closes the entry and clears its error.
+- **R4 — Lead conversion:** For a lead other than Converted or Lost, offer conversion to a deal. Conversion marks the lead Converted and creates a same-company Qualified deal with the lead's value and owner. Refresh all affected information and show `Converted to a deal in Qualified`.
+- **R5 — Deal pipeline:** Show open-deal count, value, and weighted forecast. Organize deals by Qualified (30% chance), Proposal (50%), Negotiation (75%), and Won (100%); show each stage's count, value, and chance, and show `No deals here.` for an empty stage. Deal information includes name, company, value, and owner initials. Moving a deal backward or forward changes it by one stage and cannot move beyond Qualified or Won. Advancing into Won shows `Deal won: {deal name}`.
+- **R6 — Contact lookup:** Let the user search contacts by name or company without case sensitivity. Show name, job title, company, email, phone, and last-contact recency; show `No contacts match.` when there are no results. Contact creation and editing are not requested.
+- **R7 — Activity review and completion:** Let the user view activities grouped under Today, Tomorrow, and This week, omitting empty groups, and filter by All, Calls, Meetings, Emails, or Tasks. Show each activity's type, title, company, and time. Completed activities appear muted with a struck-through title. If there are no matching activities, show `Nothing here.` The user can mark an activity complete or reopen it; refresh activity and overview information after the change.
+- **R8 — Activity creation:** Collect a non-empty title, type (Call, Meeting, Email, or Task), and due group (Today, Tomorrow, or This week). An empty-title save shows `Describe the activity` without creating a record. A valid save creates an incomplete activity for company `General` at `Anytime`; clear the title and error, close the entry, reset the filter to All, refresh affected information, and show `Activity added`. Cancel closes the entry and clears its error.
+- **R9 — Work-area navigation:** Let the user navigate among the five explicitly requested areas: Dashboard, Leads, Pipeline, Contacts, and Activities. Dashboard is the initial area and the selected navigation item reflects the currently visible area.
+- **R10 — Action feedback:** Show the specified success notifications at the bottom center for approximately 2.2 seconds.
+
+Actions:
+- **A1 (R9):** Any app user selects one of the five named areas; the destination becomes visible and its navigation selection is shown. Dashboard is the initial destination.
+- **A2 (R2):** Any app user changes a lead status filter or enters a name/company search; the lead results update to match both criteria, or show `No leads match.` if none remain. Clearing search or choosing All restores the corresponding broader result set.
+- **A3 (R3):** Any app user begins a lead entry, supplies its required fields, and saves. Missing name or company leaves the record set unchanged and displays the validation message; valid input creates the specified lead, resets the entry and filter, refreshes dependent information, and displays success feedback.
+- **A4 (R3):** Any app user cancels lead entry; the entry closes and its error clears without creating a record.
+- **A5 (R4):** Any app user converts an eligible lead. The lead becomes Converted, a Qualified deal is created with the specified company, value, and owner, dependent information refreshes, and conversion feedback appears. Converted and Lost leads are not eligible.
+- **A6 (R5):** Any app user moves a deal Back or Next. The deal changes by one stage where possible; at the first or last stage it stays there and the unavailable direction cannot be taken. Entering Won triggers the specified deal-won feedback.
+- **A7 (R6):** Any app user searches contacts by name or company; results update without case sensitivity, or show `No contacts match.` if none remain.
+- **A8 (R7):** Any app user selects an activity type filter; matching activities remain grouped by due group, with empty groups omitted, or the empty state appears.
+- **A9 (R7):** Any app user marks an activity complete or reopens it; its completion presentation changes and activity/overview information refreshes.
+- **A10 (R8):** Any app user begins an activity entry, supplies a title, type, and due group, and saves. An empty title leaves records unchanged and displays validation; a valid save creates the specified incomplete activity, resets the entry and filter, refreshes dependent information, and displays success feedback.
+- **A11 (R8):** Any app user cancels activity entry; the entry closes and its error clears without creating a record.
+
+Assumptions and material questions:
+- **S1 (R1–R8):** Proposal for discovery and the normal approval step: use the sample leads, deals, contacts, and activities listed in `D:\CRM\spec.md` as local demonstration data. Their presence in the specification is not by itself approval to implement sample records.
+- **S2 (R3–R4):** The owner initials `AK`, `RM`, and `SP` are sample record attributes; no user identity lookup or assignment workflow is implied.
+- **Q1 (R3–R8):** Confirm whether records added or changed locally should reset on a fresh app start or persist beyond the current run. No external storage or cross-device behavior is assumed.

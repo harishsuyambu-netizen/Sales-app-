@@ -1,0 +1,75 @@
+﻿App:
+  Properties:
+    Formulas: |-
+      =cBlue = RGBA(37, 99, 235, 1);
+      cLightBlue = RGBA(96, 165, 250, 1);
+      cNavy = RGBA(16, 42, 67, 1);
+      cTeal = RGBA(15, 118, 110, 1);
+      cGreen = RGBA(21, 128, 61, 1);
+      cText = RGBA(23, 43, 77, 1);
+      cMuted = RGBA(91, 107, 126, 1);
+      cBorder = RGBA(216, 225, 237, 1);
+      cPanel = RGBA(238, 243, 248, 1);
+      cTint = RGBA(232, 240, 255, 1);
+      cWhite = RGBA(255, 255, 255, 1);
+      cCanvas = RGBA(246, 248, 252, 1);
+      cStageQualified = RGBA(37, 99, 235, 1);
+      cStageProposal = RGBA(109, 40, 217, 1);
+      cStageNegotiation = RGBA(180, 83, 9, 1);
+      cStageWon = RGBA(21, 128, 61, 1);
+      cStageQualifiedPanel = RGBA(239, 246, 255, 1);
+      cStageProposalPanel = RGBA(245, 243, 255, 1);
+      cStageNegotiationPanel = RGBA(255, 251, 235, 1);
+      cStageWonPanel = RGBA(236, 253, 245, 1);
+      cFont = Font.'Segoe UI';
+      cLogoSvg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='54' height='54' viewBox='0 0 54 54'%3E%3Crect width='54' height='54' rx='10' fill='%23FFFFFF'/%3E%3Ctext x='27' y='33' text-anchor='middle' font-family='Arial,sans-serif' font-size='15' font-weight='700' letter-spacing='-0.5' fill='%232563EB'%3ECRM%3C/text%3E%3Cpath d='M11 40h32' stroke='%230F766E' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E";
+      cAccentSvg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1366' height='5' viewBox='0 0 1366 5'%3E%3Cdefs%3E%3ClinearGradient id='g'%3E%3Cstop stop-color='%232563EB'/%3E%3Cstop offset='1' stop-color='%230F766E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M0 0h1366v5H0z'/%3E%3C/svg%3E";
+      FmtINR(amount: Number): Text = If(amount >= 1000000, UniChar(8377) & Text(amount / 100000, "0.#") & " L", If(amount >= 100000, UniChar(8377) & Text(amount / 100000, "0.##") & " L", UniChar(8377) & Text(amount, "[$-en-IN]#,##0")));
+      colContacts = Table(
+        {ContactId:"C01", Name:"Rahul Deshmukh", Title:"Operations head", Company:"Sahyadri Foods", Email:"rahul@sahyadrifoods.example", Phone:"98220 11001", LastContact:"2 days ago"},
+        {ContactId:"C02", Name:"Priya Kulkarni", Title:"Fleet manager", Company:"Godavari Logistics", Email:"priya@godavarilog.example", Phone:"98220 11002", LastContact:"Today"},
+        {ContactId:"C03", Name:"Amit Joshi", Title:"Managing director", Company:"Tapovan Textiles", Email:"amit@tapovantex.example", Phone:"98220 11003", LastContact:"Yesterday"},
+        {ContactId:"C04", Name:"Neha Pawar", Title:"General manager", Company:"Panchavati Hotels", Email:"neha@panchavati.example", Phone:"98220 11004", LastContact:"5 days ago"},
+        {ContactId:"C05", Name:"Kavita Shinde", Title:"Finance lead", Company:"Anjaneri Agro", Email:"kavita@anjaneri.example", Phone:"98220 11005", LastContact:"3 days ago"},
+        {ContactId:"C06", Name:"Sagar More", Title:"IT manager", Company:"Ganga Pharma", Email:"sagar@gangapharma.example", Phone:"98220 11006", LastContact:"1 week ago"},
+        {ContactId:"C07", Name:"Meera Jadhav", Title:"Owner", Company:"Kalwan Dairy", Email:"meera@kalwandairy.example", Phone:"98220 11007", LastContact:"Today"},
+        {ContactId:"C08", Name:"Vishal Gaikwad", Title:"Purchase head", Company:"Trimbak Steel", Email:"vishal@trimbaksteel.example", Phone:"98220 11008", LastContact:"3 weeks ago"}
+      )
+    OnStart: |-
+      =ClearCollect(colLeads,
+        {LeadId:"L01", Name:"Rahul Deshmukh", Company:"Sahyadri Foods", Source:"Website", Status:"New", Score:72, Value:450000, Owner:"AK"},
+        {LeadId:"L02", Name:"Priya Kulkarni", Company:"Godavari Logistics", Source:"Referral", Status:"Contacted", Score:81, Value:820000, Owner:"RM"},
+        {LeadId:"L03", Name:"Amit Joshi", Company:"Tapovan Textiles", Source:"LinkedIn", Status:"Qualified", Score:90, Value:1250000, Owner:"AK"},
+        {LeadId:"L04", Name:"Neha Pawar", Company:"Panchavati Hotels", Source:"Trade show", Status:"New", Score:55, Value:300000, Owner:"SP"},
+        {LeadId:"L05", Name:"Sagar More", Company:"Ganga Pharma", Source:"Cold call", Status:"Contacted", Score:48, Value:210000, Owner:"RM"},
+        {LeadId:"L06", Name:"Kavita Shinde", Company:"Anjaneri Agro", Source:"Referral", Status:"Qualified", Score:86, Value:960000, Owner:"SP"},
+        {LeadId:"L07", Name:"Vishal Gaikwad", Company:"Trimbak Steel", Source:"Website", Status:"Lost", Score:30, Value:150000, Owner:"AK"},
+        {LeadId:"L08", Name:"Meera Jadhav", Company:"Kalwan Dairy", Source:"LinkedIn", Status:"Converted", Score:88, Value:540000, Owner:"RM"}
+      );
+      ClearCollect(colDeals,
+        {DealId:"D01", Name:"ERP rollout", Company:"Tapovan Textiles", Value:1250000, Stage:"Qualified", Owner:"AK"},
+        {DealId:"D02", Name:"Fleet tracking", Company:"Godavari Logistics", Value:820000, Stage:"Proposal", Owner:"RM"},
+        {DealId:"D03", Name:"Cold storage software", Company:"Sahyadri Foods", Value:640000, Stage:"Proposal", Owner:"SP"},
+        {DealId:"D04", Name:"Billing automation", Company:"Anjaneri Agro", Value:960000, Stage:"Negotiation", Owner:"SP"},
+        {DealId:"D05", Name:"HR portal", Company:"Ganga Pharma", Value:380000, Stage:"Negotiation", Owner:"RM"},
+        {DealId:"D06", Name:"POS licences", Company:"Panchavati Hotels", Value:520000, Stage:"Won", Owner:"AK"},
+        {DealId:"D07", Name:"Dairy ERP", Company:"Kalwan Dairy", Value:540000, Stage:"Qualified", Owner:"RM"}
+      );
+      ClearCollect(colActivities,
+        {ActivityId:"A01", Type:"Call", Title:"Intro call with Rahul", Company:"Sahyadri Foods", DueGroup:"Today", Time:"11:00 AM", Done:false},
+        {ActivityId:"A02", Type:"Meeting", Title:"Proposal walkthrough", Company:"Godavari Logistics", DueGroup:"Today", Time:"3:00 PM", Done:false},
+        {ActivityId:"A03", Type:"Email", Title:"Send revised quote", Company:"Anjaneri Agro", DueGroup:"Today", Time:"5:00 PM", Done:true},
+        {ActivityId:"A04", Type:"Call", Title:"Check contract terms", Company:"Tapovan Textiles", DueGroup:"Tomorrow", Time:"10:30 AM", Done:false},
+        {ActivityId:"A05", Type:"Task", Title:"Prepare demo environment", Company:"Ganga Pharma", DueGroup:"Tomorrow", Time:"2:00 PM", Done:false},
+        {ActivityId:"A06", Type:"Meeting", Title:"Site visit", Company:"Panchavati Hotels", DueGroup:"This week", Time:"Thu", Done:false},
+        {ActivityId:"A07", Type:"Email", Title:"Share case study", Company:"Kalwan Dairy", DueGroup:"This week", Time:"Fri", Done:false}
+      );
+      Set(varLeadFilter, "All");
+      Set(varLeadSearch, "");
+      Set(varContactSearch, "");
+      Set(varActivityFilter, "All");
+      Set(varLeadFormOpen, false);
+      Set(varActivityFormOpen, false);
+      Set(varToast, "")
+    StartScreen: =Screen1
+    Theme: =PowerAppsTheme

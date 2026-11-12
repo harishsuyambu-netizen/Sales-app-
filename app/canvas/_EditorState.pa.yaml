@@ -1,0 +1,7 @@
+EditorState:
+  ScreensOrder:
+    - Screen1
+    - scrLeads
+    - scrPipeline
+    - scrContacts
+    - scrActivities

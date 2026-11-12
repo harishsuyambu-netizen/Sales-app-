@@ -1,0 +1,687 @@
+Screens:
+  scrLeads:
+    Properties:
+      Fill: =cCanvas
+      OnVisible: =Set(varNavKey, 2)
+    Children:
+      - conLeadsRoot:
+          Control: GroupContainer
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =cCanvas
+            Height: =Parent.Height
+            Width: =Parent.Width
+          Children:
+            - shpLeadsAccent:
+                Control: Image
+                Properties:
+                  Height: =5
+                  Image: =cAccentSvg
+                  ImagePosition: =ImagePosition.Stretch
+                  Width: =Parent.Width
+            - shpLeadsRail:
+                Control: Rectangle
+                Properties:
+                  Fill: =cNavy
+                  Height: =Parent.Height - 5
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 0, 98)
+                  Y: =5
+            - shpLeadsMobileNav:
+                Control: Rectangle
+                Properties:
+                  Fill: =cNavy
+                  Height: =56
+                  Visible: =App.Width < 900
+                  Width: =Parent.Width
+                  Y: =5
+            - imgLeadsLogo:
+                Control: Image
+                Properties:
+                  AccessibleLabel: ="CRM logo"
+                  Height: =54
+                  Image: =cLogoSvg
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =54
+                  X: =If(App.Width < 900, 12, 20)
+                  Y: =If(App.Width < 900, 12, 22)
+            - galLeadsMobileNav:
+                Control: Gallery
+                Variant: Horizontal
+                Properties:
+                  AccessibleLabel: ="Main navigation"
+                  Height: =46
+                  Items: =Table({Key:1, Caption:"Dashboard"}, {Key:2, Caption:"Leads"}, {Key:3, Caption:"Pipeline"}, {Key:4, Caption:"Contacts"}, {Key:5, Caption:"Activities"})
+                  Selectable: =false
+                  ShowScrollbar: =false
+                  TabIndex: =0
+                  TemplatePadding: =2
+                  TemplateSize: =84
+                  Visible: =App.Width < 900
+                  Width: =Parent.Width - 70
+                  X: =66
+                  Y: =10
+                Children:
+                  - btnLeadsMobileNavItem:
+                      Control: Classic/Button
+                      Properties:
+                        BorderThickness: =0
+                        Color: =If(varNavKey = ThisItem.Key, cBlue, cWhite)
+                        Fill: =If(varNavKey = ThisItem.Key, cWhite, cNavy)
+                        Font: =cFont
+                        OnSelect: =Set(varNavKey, ThisItem.Key); Switch(ThisItem.Key, 1, Navigate(Screen1, ScreenTransition.None), 2, Navigate(scrLeads, ScreenTransition.None), 3, Navigate(scrPipeline, ScreenTransition.None), 4, Navigate(scrContacts, ScreenTransition.None), 5, Navigate(scrActivities, ScreenTransition.None))
+                        RadiusBottomLeft: =14
+                        RadiusBottomRight: =14
+                        RadiusTopLeft: =14
+                        RadiusTopRight: =14
+                        Size: =10
+                        Text: =ThisItem.Caption
+                        Width: =Parent.TemplateWidth - 4
+                        Y: =2
+            - btnLeadsNavDash:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(Screen1, ScreenTransition.None)
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 10)
+                  Text: ="Dashboard"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 80, 90)
+                  X: =If(App.Width < 900, 12, 4)
+                  Y: =If(App.Width < 900, 12, 92)
+            - btnLeadsNavLeads:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cBlue
+                  Fill: =cWhite
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrLeads, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Leads"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 70, 82)
+                  X: =If(App.Width < 900, 96, 8)
+                  Y: =If(App.Width < 900, 12, 154)
+            - btnLeadsNavPipe:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrPipeline, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Pipeline"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 76, 82)
+                  X: =If(App.Width < 900, 170, 8)
+                  Y: =If(App.Width < 900, 12, 216)
+            - btnLeadsNavContacts:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrContacts, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Contacts"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 76, 82)
+                  X: =If(App.Width < 900, 250, 8)
+                  Y: =If(App.Width < 900, 12, 278)
+            - btnLeadsNavActivities:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrActivities, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Activities"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 82, 82)
+                  X: =If(App.Width < 900, 330, 8)
+                  Y: =If(App.Width < 900, 12, 340)
+            - lblLeadsTitle:
+                Control: Label
+                Properties:
+                  Color: =cText
+                  Font: =cFont
+                  FontWeight: =FontWeight.Bold
+                  Height: =36
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =26
+                  Text: ="Leads"
+                  Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                  X: =If(App.Width < 900, 16, 124)
+                  Y: =If(App.Width < 900, 68, 26)
+            - lblLeadsSubtitle:
+                Control: Label
+                Properties:
+                  Color: =cMuted
+                  Font: =cFont
+                  Height: =22
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Text: ="Qualify new enquiries and turn them into deals"
+                  Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                  X: =If(App.Width < 900, 16, 124)
+                  Y: =If(App.Width < 900, 102, 60)
+            - btnLeadsAdd:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cBlue
+                  Font: =cFont
+                  Height: =44
+                  OnSelect: =Set(varLeadError, ""); Set(varLeadFormOpen, true); SetFocus(txtLeadsName)
+                  RadiusBottomLeft: =22
+                  RadiusBottomRight: =22
+                  RadiusTopLeft: =22
+                  RadiusTopRight: =22
+                  Size: =14
+                  Text: ="Add lead"
+                  Width: =132
+                  X: =Parent.Width - If(App.Width < 900, 148, 160)
+                  Y: =If(App.Width < 900, 130, 30)
+            - conLeadsForm:
+                Control: GroupContainer
+                Variant: ManualLayout
+                Properties:
+                  BorderColor: =cBorder
+                  BorderThickness: =1
+                  DropShadow: =DropShadow.None
+                  Fill: =cPanel
+                  Height: =If(App.Width < 900, 208, 112)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Visible: =varLeadFormOpen
+                  Width: =If(App.Width < 900, Parent.Width - 32, Parent.Width - 150)
+                  X: =If(App.Width < 900, 16, 124)
+                  Y: =If(App.Width < 900, 182, 112)
+                Children:
+                  - lblLeadsFormTitle:
+                      Control: Label
+                      Properties:
+                        Color: =cText
+                        Font: =cFont
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =15
+                        Text: ="New lead"
+                        Width: =Parent.Width - 28
+                        X: =14
+                        Y: =7
+                  - lblLeadsNameLabel:
+                      Control: Label
+                      Properties:
+                        Color: =cMuted
+                        Font: =cFont
+                        FontWeight: =FontWeight.Semibold
+                        Height: =17
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =12
+                        Text: ="Name"
+                        Width: =170
+                        X: =14
+                        Y: =34
+                  - txtLeadsName:
+                      Control: Classic/TextInput
+                      Properties:
+                        AccessibleLabel: ="Name"
+                        BorderColor: =cBorder
+                        BorderThickness: =1
+                        Color: =cText
+                        Default: =""
+                        Fill: =cWhite
+                        Font: =cFont
+                        Height: =38
+                        HintText: ="Rahul Deshmukh"
+                        Width: =If(App.Width < 900, (Parent.Width - 42) / 2, (Parent.Width - 72) / 4)
+                        X: =14
+                        Y: =52
+                  - lblLeadsCompanyLabel:
+                      Control: Label
+                      Properties:
+                        Color: =cMuted
+                        Font: =cFont
+                        FontWeight: =FontWeight.Semibold
+                        Height: =17
+                        Size: =12
+                        Text: ="Company"
+                        Width: =170
+                        X: =If(App.Width < 900, 14 + (Parent.Width - 42) / 2 + 14, 14 + (Parent.Width - 72) / 4 + 14)
+                        Y: =34
+                  - txtLeadsCompany:
+                      Control: Classic/TextInput
+                      Properties:
+                        AccessibleLabel: ="Company"
+                        BorderColor: =cBorder
+                        BorderThickness: =1
+                        Color: =cText
+                        Default: =""
+                        Fill: =cWhite
+                        Font: =cFont
+                        Height: =38
+                        HintText: ="Company name"
+                        Width: =If(App.Width < 900, (Parent.Width - 42) / 2, (Parent.Width - 72) / 4)
+                        X: =If(App.Width < 900, 14 + (Parent.Width - 42) / 2 + 14, 14 + (Parent.Width - 72) / 4 + 14)
+                        Y: =52
+                  - lblLeadsSourceLabel:
+                      Control: Label
+                      Properties:
+                        Color: =cMuted
+                        Font: =cFont
+                        FontWeight: =FontWeight.Semibold
+                        Height: =17
+                        Size: =12
+                        Text: ="Source"
+                        X: =If(App.Width < 900, 14, 14 + 2 * ((Parent.Width - 72) / 4 + 14))
+                        Y: =If(App.Width < 900, 92, 34)
+                  - ddLeadsSource:
+                      Control: Classic/DropDown
+                      Properties:
+                        AccessibleLabel: ="Lead source"
+                        BorderColor: =cBorder
+                        BorderThickness: =1
+                        Color: =cText
+                        Default: ="Website"
+                        Fill: =cWhite
+                        Font: =cFont
+                        Height: =38
+                        Items: =Table({Value:"Website"}, {Value:"Referral"}, {Value:"LinkedIn"}, {Value:"Trade show"}, {Value:"Cold call"})
+                        Items.Value: =Value
+                        Width: =If(App.Width < 900, (Parent.Width - 42) / 2, (Parent.Width - 72) / 4)
+                        X: =If(App.Width < 900, 14, 14 + 2 * ((Parent.Width - 72) / 4 + 14))
+                        Y: =If(App.Width < 900, 110, 52)
+                  - lblLeadsValueLabel:
+                      Control: Label
+                      Properties:
+                        Color: =cMuted
+                        Font: =cFont
+                        FontWeight: =FontWeight.Semibold
+                        Height: =17
+                        Size: =12
+                        Text: ="Expected value (" & UniChar(8377) & ")"
+                        Width: =180
+                        X: =If(App.Width < 900, 14 + (Parent.Width - 42) / 2 + 14, 14 + 3 * ((Parent.Width - 72) / 4 + 14))
+                        Y: =If(App.Width < 900, 92, 34)
+                  - txtLeadsValue:
+                      Control: Classic/TextInput
+                      Properties:
+                        AccessibleLabel: ="Expected value in rupees, zero or more"
+                        BorderColor: =cBorder
+                        BorderThickness: =1
+                        Color: =cText
+                        Default: =""
+                        Fill: =cWhite
+                        Font: =cFont
+                        Height: =38
+                        HintText: ="450000"
+                        Width: =If(App.Width < 900, (Parent.Width - 42) / 2, (Parent.Width - 72) / 4)
+                        X: =If(App.Width < 900, 14 + (Parent.Width - 42) / 2 + 14, 14 + 3 * ((Parent.Width - 72) / 4 + 14))
+                        Y: =If(App.Width < 900, 110, 52)
+                  - lblLeadsError:
+                      Control: Label
+                      Properties:
+                        Color: =cBlue
+                        Font: =cFont
+                        FontWeight: =FontWeight.Semibold
+                        Height: =20
+                        Live: =Live.Assertive
+                        Size: =12
+                        Text: =varLeadError
+                        Width: =Parent.Width - 230
+                        X: =14
+                        Y: =If(App.Width < 900, 156, 92)
+                  - btnLeadsSave:
+                      Control: Classic/Button
+                      Properties:
+                        BorderThickness: =0
+                        Color: =cWhite
+                        Fill: =cBlue
+                        Font: =cFont
+                        Height: =38
+                        OnSelect: |-
+                          =If(
+                            IsBlank(Trim(txtLeadsName.Text)) || IsBlank(Trim(txtLeadsCompany.Text)),
+                            Set(varLeadError, "Enter a name and company"),
+                            If(
+                              IsBlank(txtLeadsValue.Text) || IfError(Value(txtLeadsValue.Text), -1) >= 0,
+                              Collect(colLeads, {LeadId: Text(GUID()), Name: Trim(txtLeadsName.Text), Company: Trim(txtLeadsCompany.Text), Source: ddLeadsSource.Selected.Value, Status: "New", Score: 60, Value: If(IsBlank(txtLeadsValue.Text), 0, IfError(Value(txtLeadsValue.Text), 0)), Owner: "AK"});
+                              Reset(txtLeadsName); Reset(txtLeadsCompany); Reset(txtLeadsValue);
+                              Set(varLeadError, ""); Set(varLeadFormOpen, false); Set(varLeadFilter, "All"); Set(varLeadSearch, ""); Reset(txtLeadsSearch);
+                              Set(varToast, "Lead added"),
+                              Set(varLeadError, "Value must be zero or more")
+                            )
+                          )
+                        RadiusBottomLeft: =19
+                        RadiusBottomRight: =19
+                        RadiusTopLeft: =19
+                        RadiusTopRight: =19
+                        Size: =13
+                        Text: ="Save lead"
+                        Width: =104
+                        X: =Parent.Width - 208
+                        Y: =If(App.Width < 900, 164, 62)
+                  - btnLeadsCancel:
+                      Control: Classic/Button
+                      Properties:
+                        BorderColor: =cBorder
+                        BorderThickness: =1
+                        Color: =cText
+                        Fill: =cWhite
+                        Font: =cFont
+                        Height: =38
+                        OnSelect: =Set(varLeadFormOpen, false); Set(varLeadError, ""); Reset(txtLeadsName); Reset(txtLeadsCompany); Reset(txtLeadsValue)
+                        RadiusBottomLeft: =19
+                        RadiusBottomRight: =19
+                        RadiusTopLeft: =19
+                        RadiusTopRight: =19
+                        Size: =13
+                        Text: ="Cancel"
+                        Width: =82
+                        X: =Parent.Width - 96
+                        Y: =If(App.Width < 900, 164, 62)
+            - galLeadsFilters:
+                Control: Gallery
+                Variant: Horizontal
+                Properties:
+                  AccessibleLabel: ="Filter leads by status"
+                  Height: =42
+                  Items: =Table({Value:"All"}, {Value:"New"}, {Value:"Contacted"}, {Value:"Qualified"}, {Value:"Converted"}, {Value:"Lost"})
+                  Selectable: =false
+                  ShowScrollbar: =false
+                  TabIndex: =0
+                  TemplatePadding: =4
+                  TemplateSize: =If(App.Width < 900, 64, 108)
+                  Width: =If(App.Width < 900, Parent.Width - 32, Parent.Width - 570)
+                  X: =If(App.Width < 900, 16, 124)
+                  Y: =If(App.Width < 900, If(varLeadFormOpen, 398, 154), If(varLeadFormOpen, 242, 112))
+                Children:
+                  - btnLeadsFilter:
+                      Control: Classic/Button
+                      Properties:
+                        BorderColor: =If(varLeadFilter = ThisItem.Value, cBlue, cBorder)
+                        BorderThickness: =1
+                        Color: =If(varLeadFilter = ThisItem.Value, cWhite, cText)
+                        Fill: =If(varLeadFilter = ThisItem.Value, cBlue, cWhite)
+                        Font: =cFont
+                        Height: =34
+                        OnSelect: =Set(varLeadFilter, ThisItem.Value)
+                        RadiusBottomLeft: =18
+                        RadiusBottomRight: =18
+                        RadiusTopLeft: =18
+                        RadiusTopRight: =18
+                        Size: =12
+                        Text: =ThisItem.Value
+                        Width: =Parent.TemplateWidth - 8
+            - txtLeadsSearch:
+                Control: Classic/TextInput
+                Properties:
+                  AccessibleLabel: ="Search leads by name or company"
+                  BorderColor: =cBorder
+                  BorderThickness: =1
+                  Color: =cText
+                  Default: =varLeadSearch
+                  Fill: =cWhite
+                  Font: =cFont
+                  Height: =38
+                  HintText: ="Search name or company"
+                  OnChange: =Set(varLeadSearch, Lower(Trim(Self.Text)))
+                  Width: =If(App.Width < 900, Parent.Width - 32, 244)
+                  X: =If(App.Width < 900, 16, Parent.Width - 368)
+                  Y: =If(App.Width < 900, If(varLeadFormOpen, 444, 202), If(varLeadFormOpen, 290, 160))
+            - lblLeadsTableHead:
+                Control: Label
+                Properties:
+                  Color: =cMuted
+                  Font: =cFont
+                  FontWeight: =FontWeight.Semibold
+                  Height: =28
+                  PaddingBottom: =0
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  PaddingTop: =0
+                  Size: =12
+                  Text: ="LEAD / COMPANY                         SOURCE             SCORE              VALUE                 STATUS"
+                  Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                  X: =If(App.Width < 900, 16, 124)
+                  Y: =If(App.Width < 900, If(varLeadFormOpen, 490, 248), If(varLeadFormOpen, 336, 206))
+            - galLeads:
+                Control: Gallery
+                Variant: Vertical
+                Properties:
+                  AccessibleLabel: ="Lead list"
+                  Height: =If(App.Width < 900, Parent.Height - If(varLeadFormOpen, 538, 296), Parent.Height - If(varLeadFormOpen, 382, 252))
+                  Items: =SortByColumns(Filter(colLeads, (varLeadFilter = "All" || Status = varLeadFilter) && (IsBlank(varLeadSearch) || varLeadSearch in Lower(Name & " " & Company))), "Name", SortOrder.Ascending)
+                  TabIndex: =0
+                  TemplatePadding: =1
+                  TemplateSize: =58
+                  Width: =If(App.Width < 900, Parent.Width - 32, Parent.Width - 150)
+                  X: =If(App.Width < 900, 16, 124)
+                  Y: =If(App.Width < 900, If(varLeadFormOpen, 520, 278), If(varLeadFormOpen, 366, 236))
+                Children:
+                  - lblLeadsName:
+                      Control: Label
+                      Properties:
+                        Color: =cText
+                        Font: =cFont
+                        FontWeight: =FontWeight.Semibold
+                        Height: =23
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =ThisItem.Name
+                        Width: =Parent.TemplateWidth * 0.23
+                        X: =8
+                        Y: =3
+                  - lblLeadsCompany:
+                      Control: Label
+                      Properties:
+                        Color: =cMuted
+                        Font: =cFont
+                        Height: =20
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =11
+                        Text: =ThisItem.Company
+                        Width: =Parent.TemplateWidth * 0.23
+                        X: =8
+                        Y: =27
+                  - lblLeadsSource:
+                      Control: Label
+                      Properties:
+                        Color: =cText
+                        Font: =cFont
+                        Height: =22
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =12
+                        Text: =ThisItem.Source
+                        Width: =Parent.TemplateWidth * 0.13
+                        X: =Parent.TemplateWidth * 0.25
+                        Y: =16
+                  - lblLeadsScore:
+                      Control: Label
+                      Properties:
+                        Color: =cBlue
+                        Font: =cFont
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =12
+                        Text: =Text(ThisItem.Score, "0") & "%"
+                        Width: =Parent.TemplateWidth * 0.12
+                        X: =Parent.TemplateWidth * 0.39
+                        Y: =16
+                  - shpLeadsScoreTrack:
+                      Control: Rectangle
+                      Properties:
+                        Fill: =cPanel
+                        Height: =6
+                        Width: =Parent.TemplateWidth * 0.09
+                        X: =Parent.TemplateWidth * 0.39
+                        Y: =39
+                  - shpLeadsScoreBar:
+                      Control: Rectangle
+                      Properties:
+                        Fill: =cLightBlue
+                        Height: =6
+                        Width: =Parent.TemplateWidth * 0.09 * ThisItem.Score / 100
+                        X: =Parent.TemplateWidth * 0.39
+                        Y: =39
+                  - lblLeadsValue:
+                      Control: Label
+                      Properties:
+                        Color: =cText
+                        Font: =cFont
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =12
+                        Text: =FmtINR(ThisItem.Value)
+                        Width: =Parent.TemplateWidth * 0.14
+                        X: =Parent.TemplateWidth * 0.51
+                        Y: =16
+                  - lblLeadsStatus:
+                      Control: Label
+                      Properties:
+                        Align: =Align.Center
+                        Color: =Switch(ThisItem.Status, "Converted", cWhite, "Qualified", cWhite, cText)
+                        Fill: =Switch(ThisItem.Status, "Converted", cGreen, "Qualified", cBlue, "Contacted", cTint, "Lost", cPanel, cWhite)
+                        Font: =cFont
+                        FontWeight: =FontWeight.Semibold
+                        Height: =24
+                        PaddingBottom: =3
+                        PaddingLeft: =4
+                        PaddingRight: =4
+                        PaddingTop: =3
+                        Size: =11
+                        Text: =ThisItem.Status
+                        Width: =Parent.TemplateWidth * 0.13
+                        X: =Parent.TemplateWidth * 0.66
+                        Y: =16
+                  - btnLeadsConvert:
+                      Control: Classic/Button
+                      Properties:
+                        BorderThickness: =0
+                        Color: =cWhite
+                        DisplayMode: =If(ThisItem.Status = "Converted" || ThisItem.Status = "Lost", DisplayMode.Disabled, DisplayMode.Edit)
+                        Fill: =cBlue
+                        Font: =cFont
+                        Height: =36
+                        OnSelect: |-
+                          =If(
+                            ThisItem.Status <> "Converted" && ThisItem.Status <> "Lost",
+                            Patch(colLeads, LookUp(colLeads, LeadId = ThisItem.LeadId), {Status: "Converted"});
+                            Collect(colDeals, {DealId: Text(GUID()), Name: ThisItem.Company & " deal", Company: ThisItem.Company, Value: ThisItem.Value, Stage: "Qualified", Owner: ThisItem.Owner});
+                            Set(varToast, "Converted to a deal in Qualified")
+                          )
+                        RadiusBottomLeft: =18
+                        RadiusBottomRight: =18
+                        RadiusTopLeft: =18
+                        RadiusTopRight: =18
+                        Size: =11
+                        Text: ="Convert to deal"
+                        Tooltip: ="Convert " & ThisItem.Name & " to deal"
+                        Width: =134
+                        X: =Parent.TemplateWidth - 142
+                        Y: =10
+            - lblLeadsEmpty:
+                Control: Label
+                Properties:
+                  Align: =Align.Center
+                  Color: =cMuted
+                  Font: =cFont
+                  Height: =35
+                  Live: =Live.Polite
+                  Size: =14
+                  Text: ="No leads match."
+                  Visible: =galLeads.AllItemsCount = 0
+                  Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                  X: =If(App.Width < 900, 16, 124)
+                  Y: =galLeads.Y + 12
+            - lblLeadsToast:
+                Control: Label
+                Properties:
+                  Align: =Align.Center
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  FontWeight: =FontWeight.Semibold
+                  Live: =Live.Polite
+                  Text: =varToast
+                  Visible: =!IsBlank(varToast)
+                  Width: =320
+                  X: =(Parent.Width - 320) / 2
+                  Y: =Parent.Height - 56
+            - tmrLeadsToast:
+                Control: Timer
+                Properties:
+                  Duration: =2200
+                  Height: =1
+                  OnTimerEnd: =Set(varToast, "")
+                  Start: =!IsBlank(varToast)
+                  Visible: =false
+                  Width: =1

@@ -1,0 +1,873 @@
+Screens:
+  scrActivities:
+    Properties:
+      Fill: =cCanvas
+      OnVisible: =Set(varNavKey, 5)
+    Children:
+      - conActivitiesRoot:
+          Control: GroupContainer
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =cCanvas
+            Height: =Parent.Height
+            Width: =Parent.Width
+          Children:
+            - shpActivitiesAccent:
+                Control: Image
+                Properties:
+                  Height: =5
+                  Image: =cAccentSvg
+                  ImagePosition: =ImagePosition.Stretch
+                  Width: =Parent.Width
+            - shpActivitiesRail:
+                Control: Rectangle
+                Properties:
+                  Fill: =cNavy
+                  Height: =Parent.Height - 5
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 0, 98)
+                  Y: =5
+            - shpActivitiesMobileNav:
+                Control: Rectangle
+                Properties:
+                  Fill: =cNavy
+                  Height: =56
+                  Visible: =App.Width < 900
+                  Width: =Parent.Width
+                  Y: =5
+            - imgActivitiesLogo:
+                Control: Image
+                Properties:
+                  AccessibleLabel: ="CRM logo"
+                  Height: =54
+                  Image: =cLogoSvg
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =54
+                  X: =If(App.Width < 900, 12, 20)
+                  Y: =If(App.Width < 900, 12, 22)
+            - galActivitiesMobileNav:
+                Control: Gallery
+                Variant: Horizontal
+                Properties:
+                  AccessibleLabel: ="Main navigation"
+                  Height: =46
+                  Items: =Table({Key:1, Caption:"Dashboard"}, {Key:2, Caption:"Leads"}, {Key:3, Caption:"Pipeline"}, {Key:4, Caption:"Contacts"}, {Key:5, Caption:"Activities"})
+                  Selectable: =false
+                  ShowScrollbar: =false
+                  TabIndex: =0
+                  TemplatePadding: =2
+                  TemplateSize: =84
+                  Visible: =App.Width < 900
+                  Width: =Parent.Width - 70
+                  X: =66
+                  Y: =10
+                Children:
+                  - btnActivitiesMobileNavItem:
+                      Control: Classic/Button
+                      Properties:
+                        BorderThickness: =0
+                        Color: =If(varNavKey = ThisItem.Key, cBlue, cWhite)
+                        Fill: =If(varNavKey = ThisItem.Key, cWhite, cNavy)
+                        Font: =cFont
+                        OnSelect: =Set(varNavKey, ThisItem.Key); Switch(ThisItem.Key, 1, Navigate(Screen1, ScreenTransition.None), 2, Navigate(scrLeads, ScreenTransition.None), 3, Navigate(scrPipeline, ScreenTransition.None), 4, Navigate(scrContacts, ScreenTransition.None), 5, Navigate(scrActivities, ScreenTransition.None))
+                        RadiusBottomLeft: =14
+                        RadiusBottomRight: =14
+                        RadiusTopLeft: =14
+                        RadiusTopRight: =14
+                        Size: =10
+                        Text: =ThisItem.Caption
+                        Width: =Parent.TemplateWidth - 4
+                        Y: =2
+            - btnActivitiesNavDash:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(Screen1, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Dashboard"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 80, 82)
+                  X: =If(App.Width < 900, 12, 8)
+                  Y: =If(App.Width < 900, 12, 92)
+            - btnActivitiesNavLeads:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrLeads, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Leads"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 70, 82)
+                  X: =If(App.Width < 900, 96, 8)
+                  Y: =If(App.Width < 900, 12, 154)
+            - btnActivitiesNavPipe:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrPipeline, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Pipeline"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 76, 82)
+                  X: =If(App.Width < 900, 170, 8)
+                  Y: =If(App.Width < 900, 12, 216)
+            - btnActivitiesNavContacts:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrContacts, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Contacts"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 76, 82)
+                  X: =If(App.Width < 900, 250, 8)
+                  Y: =If(App.Width < 900, 12, 278)
+            - btnActivitiesNavActivities:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cBlue
+                  Fill: =cWhite
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrActivities, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Activities"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 82, 82)
+                  X: =If(App.Width < 900, 330, 8)
+                  Y: =If(App.Width < 900, 12, 340)
+            - lblActivitiesToast:
+                Control: Label
+                Properties:
+                  Align: =Align.Center
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  FontWeight: =FontWeight.Semibold
+                  Live: =Live.Polite
+                  Text: =varToast
+                  Visible: =!IsBlank(varToast)
+                  Width: =320
+                  X: =(Parent.Width - 320) / 2
+                  Y: =Parent.Height - 56
+            - tmrActivitiesToast:
+                Control: Timer
+                Properties:
+                  Duration: =2200
+                  Height: =1
+                  OnTimerEnd: =Set(varToast, "")
+                  Start: =!IsBlank(varToast)
+                  Visible: =false
+                  Width: =1
+            - conActivitiesViewport:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Fill: =cWhite
+                  Height: =Parent.Height - 5
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  Width: =Parent.Width
+                  Y: =5
+                Children:
+                  - conActivitiesPage:
+                      Control: GroupContainer
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =cCanvas
+                        FillPortions: =0
+                        Height: =If(App.Width < 900 && varActivityFormOpen, 930, Parent.Height)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Width: =Parent.Width
+                      Children:
+                        - galActivitiesFilter:
+                            Control: Gallery
+                            Variant: Horizontal
+                            Properties:
+                              AccessibleLabel: ="Filter activities by type"
+                              Height: =42
+                              Items: =Table({Value:"All", Caption:"All"}, {Value:"Call", Caption:"Calls"}, {Value:"Meeting", Caption:"Meetings"}, {Value:"Email", Caption:"Emails"}, {Value:"Task", Caption:"Tasks"})
+                              Selectable: =false
+                              ShowScrollbar: =false
+                              TemplatePadding: =4
+                              TemplateSize: =If(App.Width < 900, 70, 118)
+                              Width: =If(App.Width < 900, Parent.Width - 32, Parent.Width - 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =If(App.Width < 900, If(varActivityFormOpen, 398, 154), If(varActivityFormOpen, 242, 112))
+                            Children:
+                              - btnActivityFilter:
+                                  Control: Classic/Button
+                                  Properties:
+                                    BorderColor: =If(varActivityFilter = ThisItem.Value, cBlue, cBorder)
+                                    BorderThickness: =1
+                                    Color: =If(varActivityFilter = ThisItem.Value, cWhite, cText)
+                                    Fill: =If(varActivityFilter = ThisItem.Value, cBlue, cWhite)
+                                    Font: =cFont
+                                    Height: =34
+                                    OnSelect: =Set(varActivityFilter, ThisItem.Value)
+                                    RadiusBottomLeft: =18
+                                    RadiusBottomRight: =18
+                                    RadiusTopLeft: =18
+                                    RadiusTopRight: =18
+                                    Size: =12
+                                    Text: =ThisItem.Caption
+                                    Width: =Parent.TemplateWidth - 8
+                        - lblActivityToday:
+                            Control: Label
+                            Properties:
+                              Color: =cBlue
+                              Font: =cFont
+                              FontWeight: =FontWeight.Semibold
+                              Height: =22
+                              Size: =12
+                              Text: ="Today"
+                              Visible: =CountRows(Filter(colActivities, DueGroup = "Today" && (varActivityFilter = "All" || Type = varActivityFilter))) > 0
+                              Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =If(App.Width < 900, If(varActivityFormOpen, 448, 204), If(varActivityFormOpen, 292, 162))
+                        - galActivityToday:
+                            Control: Gallery
+                            Variant: Vertical
+                            Properties:
+                              AccessibleLabel: ="Today's activities"
+                              Height: =Min(CountRows(Filter(colActivities, DueGroup = "Today" && (varActivityFilter = "All" || Type = varActivityFilter))) * 48, 144)
+                              Items: =Filter(colActivities, DueGroup = "Today" && (varActivityFilter = "All" || Type = varActivityFilter))
+                              ShowScrollbar: =false
+                              TemplatePadding: =0
+                              TemplateSize: =48
+                              Width: =If(App.Width < 900, Parent.Width - 32, Parent.Width - 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =If(App.Width < 900, If(varActivityFormOpen, 472, 228), If(varActivityFormOpen, 316, 186))
+                            Children:
+                              - btnActivityToggleToday:
+                                  Control: Classic/Button
+                                  Properties:
+                                    BorderColor: =If(ThisItem.Done, cGreen, cBorder)
+                                    BorderThickness: =1
+                                    Color: =If(ThisItem.Done, cWhite, cBlue)
+                                    Fill: =If(ThisItem.Done, cGreen, cWhite)
+                                    Font: =cFont
+                                    Height: =38
+                                    OnSelect: |-
+                                      =Patch(colActivities, LookUp(colActivities, ActivityId = ThisItem.ActivityId), {Done: !ThisItem.Done})
+                                    Size: =11
+                                    Text: =If(ThisItem.Done, "Reopen", "Mark done")
+                                    Width: =If(App.Width < 900, 82, 104)
+                                    Y: =4
+                              - lblActivityTitleToday:
+                                  Control: Label
+                                  Properties:
+                                    Color: =If(ThisItem.Done, cMuted, cText)
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =20
+                                    Strikethrough: =ThisItem.Done
+                                    Text: =ThisItem.Title
+                                    Width: =Parent.TemplateWidth - If(App.Width < 900, 190, 250)
+                                    X: =If(App.Width < 900, 90, 112)
+                                    Y: =5
+                              - lblActivityMetaToday:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cMuted
+                                    Font: =cFont
+                                    Height: =18
+                                    Size: =11
+                                    Text: =ThisItem.Company & " | " & ThisItem.Time
+                                    Width: =Parent.TemplateWidth - If(App.Width < 900, 190, 250)
+                                    X: =If(App.Width < 900, 90, 112)
+                                    Y: =25
+                              - lblActivityTypeToday:
+                                  Control: Label
+                                  Properties:
+                                    Align: =Align.Right
+                                    Color: =cBlue
+                                    Font: =cFont
+                                    Height: =22
+                                    Size: =11
+                                    Text: =ThisItem.Type
+                                    Width: =96
+                                    X: =Parent.TemplateWidth - 105
+                                    Y: =12
+                        - lblActivityTomorrow:
+                            Control: Label
+                            Properties:
+                              Color: =cBlue
+                              Font: =cFont
+                              FontWeight: =FontWeight.Semibold
+                              Height: =22
+                              Size: =12
+                              Text: ="Tomorrow"
+                              Visible: =CountRows(Filter(colActivities, DueGroup = "Tomorrow" && (varActivityFilter = "All" || Type = varActivityFilter))) > 0
+                              Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =galActivityToday.Y + galActivityToday.Height + 8
+                        - galActivityTomorrow:
+                            Control: Gallery
+                            Variant: Vertical
+                            Properties:
+                              AccessibleLabel: ="Tomorrow's activities"
+                              Height: =Min(CountRows(Filter(colActivities, DueGroup = "Tomorrow" && (varActivityFilter = "All" || Type = varActivityFilter))) * 48, 144)
+                              Items: =Filter(colActivities, DueGroup = "Tomorrow" && (varActivityFilter = "All" || Type = varActivityFilter))
+                              ShowScrollbar: =false
+                              TemplatePadding: =0
+                              TemplateSize: =48
+                              Width: =If(App.Width < 900, Parent.Width - 32, Parent.Width - 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =lblActivityTomorrow.Y + 24
+                            Children:
+                              - btnActivityToggleTomorrow:
+                                  Control: Classic/Button
+                                  Properties:
+                                    BorderColor: =If(ThisItem.Done, cGreen, cBorder)
+                                    BorderThickness: =1
+                                    Color: =If(ThisItem.Done, cWhite, cBlue)
+                                    Fill: =If(ThisItem.Done, cGreen, cWhite)
+                                    Font: =cFont
+                                    Height: =38
+                                    OnSelect: |-
+                                      =Patch(colActivities, LookUp(colActivities, ActivityId = ThisItem.ActivityId), {Done: !ThisItem.Done})
+                                    Size: =11
+                                    Text: =If(ThisItem.Done, "Reopen", "Mark done")
+                                    Width: =If(App.Width < 900, 82, 104)
+                                    Y: =4
+                              - lblActivityTitleTomorrow:
+                                  Control: Label
+                                  Properties:
+                                    Color: =If(ThisItem.Done, cMuted, cText)
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =20
+                                    Strikethrough: =ThisItem.Done
+                                    Text: =ThisItem.Title
+                                    Width: =Parent.TemplateWidth - If(App.Width < 900, 190, 250)
+                                    X: =If(App.Width < 900, 90, 112)
+                                    Y: =5
+                              - lblActivityMetaTomorrow:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cMuted
+                                    Font: =cFont
+                                    Height: =18
+                                    Size: =11
+                                    Text: =ThisItem.Company & " | " & ThisItem.Time
+                                    Width: =Parent.TemplateWidth - If(App.Width < 900, 190, 250)
+                                    X: =If(App.Width < 900, 90, 112)
+                                    Y: =25
+                              - lblActivityTypeTomorrow:
+                                  Control: Label
+                                  Properties:
+                                    Align: =Align.Right
+                                    Color: =cBlue
+                                    Font: =cFont
+                                    Height: =22
+                                    Size: =11
+                                    Text: =ThisItem.Type
+                                    Width: =96
+                                    X: =Parent.TemplateWidth - 105
+                                    Y: =12
+                        - lblActivityWeek:
+                            Control: Label
+                            Properties:
+                              Color: =cBlue
+                              Font: =cFont
+                              FontWeight: =FontWeight.Semibold
+                              Height: =22
+                              Size: =12
+                              Text: ="This week"
+                              Visible: =CountRows(Filter(colActivities, DueGroup = "This week" && (varActivityFilter = "All" || Type = varActivityFilter))) > 0
+                              Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =galActivityTomorrow.Y + galActivityTomorrow.Height + 8
+                        - galActivityWeek:
+                            Control: Gallery
+                            Variant: Vertical
+                            Properties:
+                              AccessibleLabel: ="This week's activities"
+                              Height: =Min(CountRows(Filter(colActivities, DueGroup = "This week" && (varActivityFilter = "All" || Type = varActivityFilter))) * 48, 144)
+                              Items: =Filter(colActivities, DueGroup = "This week" && (varActivityFilter = "All" || Type = varActivityFilter))
+                              ShowScrollbar: =false
+                              TemplatePadding: =0
+                              TemplateSize: =48
+                              Width: =If(App.Width < 900, Parent.Width - 32, Parent.Width - 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =lblActivityWeek.Y + 24
+                            Children:
+                              - btnActivityToggleWeek:
+                                  Control: Classic/Button
+                                  Properties:
+                                    BorderColor: =If(ThisItem.Done, cGreen, cBorder)
+                                    BorderThickness: =1
+                                    Color: =If(ThisItem.Done, cWhite, cBlue)
+                                    Fill: =If(ThisItem.Done, cGreen, cWhite)
+                                    Font: =cFont
+                                    Height: =38
+                                    OnSelect: |-
+                                      =Patch(colActivities, LookUp(colActivities, ActivityId = ThisItem.ActivityId), {Done: !ThisItem.Done})
+                                    Size: =11
+                                    Text: =If(ThisItem.Done, "Reopen", "Mark done")
+                                    Width: =If(App.Width < 900, 82, 104)
+                                    Y: =4
+                              - lblActivityTitleWeek:
+                                  Control: Label
+                                  Properties:
+                                    Color: =If(ThisItem.Done, cMuted, cText)
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =20
+                                    Strikethrough: =ThisItem.Done
+                                    Text: =ThisItem.Title
+                                    Width: =Parent.TemplateWidth - If(App.Width < 900, 190, 250)
+                                    X: =If(App.Width < 900, 90, 112)
+                                    Y: =5
+                              - lblActivityMetaWeek:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cMuted
+                                    Font: =cFont
+                                    Height: =18
+                                    Size: =11
+                                    Text: =ThisItem.Company & " | " & ThisItem.Time
+                                    Width: =Parent.TemplateWidth - If(App.Width < 900, 190, 250)
+                                    X: =If(App.Width < 900, 90, 112)
+                                    Y: =25
+                              - lblActivityTypeWeek:
+                                  Control: Label
+                                  Properties:
+                                    Align: =Align.Right
+                                    Color: =cBlue
+                                    Font: =cFont
+                                    Height: =22
+                                    Size: =11
+                                    Text: =ThisItem.Type
+                                    Width: =96
+                                    X: =Parent.TemplateWidth - 105
+                                    Y: =12
+                        - lblActivitiesEmpty:
+                            Control: Label
+                            Properties:
+                              Align: =Align.Center
+                              Color: =cMuted
+                              Font: =cFont
+                              Height: =36
+                              Live: =Live.Polite
+                              Size: =14
+                              Text: ="Nothing here."
+                              Visible: =CountRows(Filter(colActivities, varActivityFilter = "All" || Type = varActivityFilter)) = 0
+                              Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =If(App.Width < 900, If(varActivityFormOpen, 484, 204), If(varActivityFormOpen, 292, 162))
+                        - lblActivitiesTitle:
+                            Control: Label
+                            Properties:
+                              Color: =cText
+                              Font: =cFont
+                              FontWeight: =FontWeight.Bold
+                              Height: =36
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =26
+                              Text: ="Activities"
+                              Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =If(App.Width < 900, 68, 26)
+                        - lblActivitiesSubtitle:
+                            Control: Label
+                            Properties:
+                              Color: =cMuted
+                              Font: =cFont
+                              Height: =22
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Text: ="Calls, meetings, emails and tasks"
+                              Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =If(App.Width < 900, 102, 60)
+                        - btnActivitiesAdd:
+                            Control: Classic/Button
+                            Properties:
+                              BorderThickness: =0
+                              Color: =cWhite
+                              Fill: =cBlue
+                              Font: =cFont
+                              Height: =44
+                              OnSelect: =Set(varActivityError, ""); Set(varActivityFormOpen, true); SetFocus(txtActivityTask)
+                              RadiusBottomLeft: =22
+                              RadiusBottomRight: =22
+                              RadiusTopLeft: =22
+                              RadiusTopRight: =22
+                              Size: =14
+                              Text: ="Add activity"
+                              Width: =150
+                              X: =Parent.Width - If(App.Width < 900, 166, 178)
+                              Y: =If(App.Width < 900, 130, 30)
+                        - conActivitiesForm:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              BorderColor: =cBorder
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              Fill: =cPanel
+                              Height: =If(App.Width < 900, 208, 112)
+                              RadiusBottomLeft: =14
+                              RadiusBottomRight: =14
+                              RadiusTopLeft: =14
+                              RadiusTopRight: =14
+                              Visible: =varActivityFormOpen
+                              Width: =If(App.Width < 900, Parent.Width - 32, Parent.Width - 150)
+                              X: =If(App.Width < 900, 16, 124)
+                              Y: =If(App.Width < 900, 182, 112)
+                            Children:
+                              - lblActivityWhenLabel:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cMuted
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =17
+                                    Size: =12
+                                    Text: ="When"
+                                    X: =If(App.Width < 900, 14 + (Parent.Width - 42) / 2 + 14, 14 + 2 * ((Parent.Width - 72) / 3 + 14))
+                                    Y: =If(App.Width < 900, 96, 34)
+                              - ddActivityWhen:
+                                  Control: Classic/DropDown
+                                  Properties:
+                                    AccessibleLabel: ="Due group"
+                                    BorderColor: =cBorder
+                                    BorderThickness: =1
+                                    Color: =cText
+                                    Default: ="Today"
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    Height: =38
+                                    Items: =Table({Value:"Today"}, {Value:"Tomorrow"}, {Value:"This week"})
+                                    Items.Value: =Value
+                                    Width: =If(App.Width < 900, (Parent.Width - 42) / 2, (Parent.Width - 72) / 3)
+                                    X: =If(App.Width < 900, 14 + (Parent.Width - 42) / 2 + 14, 14 + 2 * ((Parent.Width - 72) / 3 + 14))
+                                    Y: =If(App.Width < 900, 114, 52)
+                              - lblActivityError:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cBlue
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =20
+                                    Live: =Live.Assertive
+                                    Size: =12
+                                    Text: =varActivityError
+                                    Width: =Parent.Width - 230
+                                    X: =14
+                                    Y: =If(App.Width < 900, 156, 92)
+                              - btnActivitySave:
+                                  Control: Classic/Button
+                                  Properties:
+                                    BorderThickness: =0
+                                    Color: =cWhite
+                                    Fill: =cBlue
+                                    Font: =cFont
+                                    Height: =38
+                                    OnSelect: |-
+                                      =If(
+                                        IsBlank(Trim(txtActivityTask.Text)),
+                                        Set(varActivityError, "Describe the activity"),
+                                        Collect(colActivities, {ActivityId: Text(GUID()), Type: ddActivityType.Selected.Value, Title: Trim(txtActivityTask.Text), Company: "General", DueGroup: ddActivityWhen.Selected.Value, Time: "Anytime", Done: false});
+                                        Reset(txtActivityTask); Set(varActivityError, ""); Set(varActivityFormOpen, false); Set(varActivityFilter, "All");
+                                        Set(varToast, "Activity added")
+                                      )
+                                    RadiusBottomLeft: =19
+                                    RadiusBottomRight: =19
+                                    RadiusTopLeft: =19
+                                    RadiusTopRight: =19
+                                    Size: =13
+                                    Text: ="Save activity"
+                                    Width: =104
+                                    X: =Parent.Width - 208
+                                    Y: =If(App.Width < 900, 164, 62)
+                              - btnActivityCancel:
+                                  Control: Classic/Button
+                                  Properties:
+                                    BorderColor: =cBorder
+                                    BorderThickness: =1
+                                    Color: =cText
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    Height: =38
+                                    OnSelect: =Set(varActivityFormOpen, false); Set(varActivityError, ""); Reset(txtActivityTask)
+                                    RadiusBottomLeft: =19
+                                    RadiusBottomRight: =19
+                                    RadiusTopLeft: =19
+                                    RadiusTopRight: =19
+                                    Size: =13
+                                    Text: ="Cancel"
+                                    Width: =82
+                                    X: =Parent.Width - 96
+                                    Y: =If(App.Width < 900, 164, 62)
+                              - lblActivitiesFormTitle:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cText
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =22
+                                    Size: =15
+                                    Text: ="New activity"
+                                    Width: =Parent.Width - 28
+                                    X: =14
+                                    Y: =7
+                              - lblActivityTaskLabel:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cMuted
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =17
+                                    Size: =12
+                                    Text: ="What needs doing"
+                                    Width: =160
+                                    X: =14
+                                    Y: =34
+                              - txtActivityTask:
+                                  Control: Classic/TextInput
+                                  Properties:
+                                    AccessibleLabel: ="What needs doing"
+                                    BorderColor: =cBorder
+                                    BorderThickness: =1
+                                    Color: =cText
+                                    Default: =""
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    Height: =38
+                                    HintText: ="Follow up on proposal"
+                                    Width: =If(App.Width < 900, Parent.Width - 28, (Parent.Width - 72) / 3)
+                                    X: =14
+                                    Y: =52
+                              - lblActivityTypeLabel:
+                                  Control: Label
+                                  Properties:
+                                    Color: =cMuted
+                                    Font: =cFont
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =17
+                                    Size: =12
+                                    Text: ="Type"
+                                    X: =If(App.Width < 900, 14, 14 + (Parent.Width - 72) / 3 + 14)
+                                    Y: =If(App.Width < 900, 96, 34)
+                              - ddActivityType:
+                                  Control: Classic/DropDown
+                                  Properties:
+                                    AccessibleLabel: ="Activity type"
+                                    BorderColor: =cBorder
+                                    BorderThickness: =1
+                                    Color: =cText
+                                    Default: ="Call"
+                                    Fill: =cWhite
+                                    Font: =cFont
+                                    Height: =38
+                                    Items: =Table({Value:"Call"}, {Value:"Meeting"}, {Value:"Email"}, {Value:"Task"})
+                                    Items.Value: =Value
+                                    Width: =If(App.Width < 900, (Parent.Width - 42) / 2, (Parent.Width - 72) / 3)
+                                    X: =If(App.Width < 900, 14, 14 + (Parent.Width - 72) / 3 + 14)
+                                    Y: =If(App.Width < 900, 114, 52)
+            - shpActivitiesRailTop:
+                Control: Rectangle
+                Properties:
+                  Fill: =cNavy
+                  Height: =Parent.Height - 5
+                  Visible: =App.Width >= 900
+                  Width: =98
+                  Y: =5
+            - shpActivitiesMobileNavTop:
+                Control: Rectangle
+                Properties:
+                  Fill: =cNavy
+                  Height: =56
+                  Visible: =App.Width < 900
+                  Width: =Parent.Width
+                  Y: =5
+            - imgActivitiesLogoTop:
+                Control: Image
+                Properties:
+                  AccessibleLabel: ="CRM logo"
+                  Height: =54
+                  Image: =cLogoSvg
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =54
+                  X: =If(App.Width < 900, 12, 20)
+                  Y: =If(App.Width < 900, 12, 22)
+            - galActivitiesMobileNavTop:
+                Control: Gallery
+                Variant: Horizontal
+                Properties:
+                  AccessibleLabel: ="Main navigation"
+                  Height: =46
+                  Items: =Table({Key:1, Caption:"Dashboard"}, {Key:2, Caption:"Leads"}, {Key:3, Caption:"Pipeline"}, {Key:4, Caption:"Contacts"}, {Key:5, Caption:"Activities"})
+                  Selectable: =false
+                  ShowScrollbar: =false
+                  TabIndex: =0
+                  TemplatePadding: =2
+                  TemplateSize: =84
+                  Visible: =App.Width < 900
+                  Width: =Parent.Width - 70
+                  X: =66
+                  Y: =10
+                Children:
+                  - btnActivitiesMobileNavTopItem:
+                      Control: Classic/Button
+                      Properties:
+                        BorderThickness: =0
+                        Color: =If(varNavKey = ThisItem.Key, cBlue, cWhite)
+                        Fill: =If(varNavKey = ThisItem.Key, cWhite, cNavy)
+                        Font: =cFont
+                        OnSelect: =Set(varNavKey, ThisItem.Key); Switch(ThisItem.Key, 1, Navigate(Screen1, ScreenTransition.None), 2, Navigate(scrLeads, ScreenTransition.None), 3, Navigate(scrPipeline, ScreenTransition.None), 4, Navigate(scrContacts, ScreenTransition.None), 5, Navigate(scrActivities, ScreenTransition.None))
+                        RadiusBottomLeft: =14
+                        RadiusBottomRight: =14
+                        RadiusTopLeft: =14
+                        RadiusTopRight: =14
+                        Size: =10
+                        Text: =ThisItem.Caption
+                        Width: =Parent.TemplateWidth - 4
+                        Y: =2
+            - btnActivitiesNavDashTop:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =56
+                  OnSelect: =Navigate(Screen1, ScreenTransition.None)
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =10
+                  Text: ="Dashboard"
+                  Visible: =App.Width >= 900
+                  Width: =90
+                  X: =4
+                  Y: =92
+            - btnActivitiesNavLeadsTop:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =56
+                  OnSelect: =Navigate(scrLeads, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =11
+                  Text: ="Leads"
+                  Visible: =App.Width >= 900
+                  Width: =82
+                  X: =8
+                  Y: =154
+            - btnActivitiesNavPipeTop:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =56
+                  OnSelect: =Navigate(scrPipeline, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =11
+                  Text: ="Pipeline"
+                  Visible: =App.Width >= 900
+                  Width: =82
+                  X: =8
+                  Y: =216
+            - btnActivitiesNavContactsTop:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =56
+                  OnSelect: =Navigate(scrContacts, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =11
+                  Text: ="Contacts"
+                  Visible: =App.Width >= 900
+                  Width: =82
+                  X: =8
+                  Y: =278
+            - btnActivitiesNavActivitiesTop:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cBlue
+                  Fill: =cWhite
+                  Font: =cFont
+                  Height: =56
+                  OnSelect: =Navigate(scrActivities, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =11
+                  Text: ="Activities"
+                  Visible: =App.Width >= 900
+                  Width: =82
+                  X: =8
+                  Y: =340

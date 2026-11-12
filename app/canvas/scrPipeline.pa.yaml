@@ -1,0 +1,930 @@
+Screens:
+  scrPipeline:
+    Properties:
+      Fill: =cCanvas
+      OnVisible: =Set(varNavKey, 3)
+    Children:
+      - conPipeRoot:
+          Control: GroupContainer
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Fill: =cCanvas
+            Height: =Parent.Height
+            Width: =Parent.Width
+          Children:
+            - shpPipeAccent:
+                Control: Image
+                Properties:
+                  Height: =5
+                  Image: =cAccentSvg
+                  ImagePosition: =ImagePosition.Stretch
+                  Width: =Parent.Width
+            - shpPipeRail:
+                Control: Rectangle
+                Properties:
+                  Fill: =cNavy
+                  Height: =Parent.Height - 5
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 0, 98)
+                  Y: =5
+            - shpPipeMobileNav:
+                Control: Rectangle
+                Properties:
+                  Fill: =cNavy
+                  Height: =56
+                  Visible: =App.Width < 900
+                  Width: =Parent.Width
+                  Y: =5
+            - imgPipeLogo:
+                Control: Image
+                Properties:
+                  AccessibleLabel: ="CRM logo"
+                  Height: =54
+                  Image: =cLogoSvg
+                  ImagePosition: =ImagePosition.Fit
+                  Width: =54
+                  X: =If(App.Width < 900, 12, 20)
+                  Y: =If(App.Width < 900, 12, 22)
+            - galPipeMobileNav:
+                Control: Gallery
+                Variant: Horizontal
+                Properties:
+                  AccessibleLabel: ="Main navigation"
+                  Height: =46
+                  Items: =Table({Key:1, Caption:"Dashboard"}, {Key:2, Caption:"Leads"}, {Key:3, Caption:"Pipeline"}, {Key:4, Caption:"Contacts"}, {Key:5, Caption:"Activities"})
+                  Selectable: =false
+                  ShowScrollbar: =false
+                  TabIndex: =0
+                  TemplatePadding: =2
+                  TemplateSize: =84
+                  Visible: =App.Width < 900
+                  Width: =Parent.Width - 70
+                  X: =66
+                  Y: =10
+                Children:
+                  - btnPipeMobileNavItem:
+                      Control: Classic/Button
+                      Properties:
+                        BorderThickness: =0
+                        Color: =If(varNavKey = ThisItem.Key, cBlue, cWhite)
+                        Fill: =If(varNavKey = ThisItem.Key, cWhite, cNavy)
+                        Font: =cFont
+                        OnSelect: =Set(varNavKey, ThisItem.Key); Switch(ThisItem.Key, 1, Navigate(Screen1, ScreenTransition.None), 2, Navigate(scrLeads, ScreenTransition.None), 3, Navigate(scrPipeline, ScreenTransition.None), 4, Navigate(scrContacts, ScreenTransition.None), 5, Navigate(scrActivities, ScreenTransition.None))
+                        RadiusBottomLeft: =14
+                        RadiusBottomRight: =14
+                        RadiusTopLeft: =14
+                        RadiusTopRight: =14
+                        Size: =10
+                        Text: =ThisItem.Caption
+                        Width: =Parent.TemplateWidth - 4
+                        Y: =2
+            - btnPipeNavDash:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(Screen1, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Dashboard"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 80, 82)
+                  X: =If(App.Width < 900, 12, 8)
+                  Y: =If(App.Width < 900, 12, 92)
+            - btnPipeNavLeads:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrLeads, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Leads"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 70, 82)
+                  X: =If(App.Width < 900, 96, 8)
+                  Y: =If(App.Width < 900, 12, 154)
+            - btnPipeNavPipe:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cBlue
+                  Fill: =cWhite
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrPipeline, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Pipeline"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 76, 82)
+                  X: =If(App.Width < 900, 170, 8)
+                  Y: =If(App.Width < 900, 12, 216)
+            - btnPipeNavContacts:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrContacts, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Contacts"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 76, 82)
+                  X: =If(App.Width < 900, 250, 8)
+                  Y: =If(App.Width < 900, 12, 278)
+            - btnPipeNavActivities:
+                Control: Classic/Button
+                Properties:
+                  BorderThickness: =0
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  Height: =If(App.Width < 900, 42, 56)
+                  OnSelect: =Navigate(scrActivities, ScreenTransition.None)
+                  RadiusBottomLeft: =14
+                  RadiusBottomRight: =14
+                  RadiusTopLeft: =14
+                  RadiusTopRight: =14
+                  Size: =If(App.Width < 900, 10, 11)
+                  Text: ="Activities"
+                  Visible: =App.Width >= 900
+                  Width: =If(App.Width < 900, 82, 82)
+                  X: =If(App.Width < 900, 330, 8)
+                  Y: =If(App.Width < 900, 12, 340)
+            - lblPipeTitle:
+                Control: Label
+                Properties:
+                  Color: =cText
+                  Font: =cFont
+                  FontWeight: =FontWeight.Bold
+                  Height: =36
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =26
+                  Text: ="Deals pipeline"
+                  Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                  X: =If(App.Width < 900, 16, 124)
+                  Y: =If(App.Width < 900, 68, 26)
+            - lblPipeSummary:
+                Control: Label
+                Properties:
+                  Color: =cMuted
+                  Font: =cFont
+                  Height: =22
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Text: =CountRows(Filter(colDeals, Stage <> "Won")) & " open deals worth " & FmtINR(Sum(Filter(colDeals, Stage <> "Won"), Value)) & " · forecast " & FmtINR(Sum(Filter(colDeals, Stage <> "Won"), Value * Switch(Stage, "Qualified", 0.3, "Proposal", 0.5, "Negotiation", 0.75, 0)))
+                  Width: =Parent.Width - If(App.Width < 900, 32, 150)
+                  X: =If(App.Width < 900, 16, 124)
+                  Y: =If(App.Width < 900, 104, 62)
+            - conPipeBoard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height - If(App.Width < 900, 156, 118)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =12
+                  LayoutOverflowX: =LayoutOverflow.Scroll
+                  PaddingBottom: =8
+                  PaddingLeft: =2
+                  PaddingRight: =2
+                  PaddingTop: =2
+                  Width: =If(App.Width < 900, Parent.Width - 32, Parent.Width - 150)
+                  X: =If(App.Width < 900, 16, 124)
+                  Y: =If(App.Width < 900, 142, 104)
+                Children:
+                  - conPipeQualified:
+                      Control: GroupContainer
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =cStageQualifiedPanel
+                        FillPortions: =0
+                        Height: =Parent.Height
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =248
+                        RadiusBottomLeft: =16
+                        RadiusBottomRight: =16
+                        RadiusTopLeft: =16
+                        RadiusTopRight: =16
+                        Width: =If(App.Width < 900, 248, (Parent.Width - 48) / 4)
+                      Children:
+                        - lblPipeQualifiedHead:
+                            Control: Label
+                            Properties:
+                              Color: =cStageQualified
+                              Font: =cFont
+                              FontWeight: =FontWeight.Semibold
+                              Height: =22
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =15
+                              Text: ="Qualified"
+                              Width: =Parent.Width - 28
+                              X: =14
+                              Y: =10
+                        - lblPipeQualifiedTotals:
+                            Control: Label
+                            Properties:
+                              Color: =cMuted
+                              Font: =cFont
+                              Height: =20
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =10
+                              Text: =CountRows(Filter(colDeals, Stage = "Qualified")) & " deals · " & FmtINR(Sum(Filter(colDeals, Stage = "Qualified"), Value)) & " · 30% chance"
+                              Width: =Parent.Width - 28
+                              X: =14
+                              Y: =33
+                        - galPipeQualified:
+                            Control: Gallery
+                            Variant: Vertical
+                            Properties:
+                              AccessibleLabel: ="Qualified deals"
+                              Height: =Parent.Height - 68
+                              Items: =Filter(colDeals, Stage = "Qualified")
+                              TabIndex: =0
+                              TemplateSize: =140
+                              Width: =Parent.Width - 20
+                              X: =10
+                              Y: =58
+                            Children:
+                              - conPipeQualifiedCard:
+                                  Control: GroupContainer
+                                  Variant: ManualLayout
+                                  Properties:
+                                    BorderColor: =cBorder
+                                    BorderThickness: =1
+                                    DropShadow: =DropShadow.Semilight
+                                    Fill: =cWhite
+                                    Height: =Parent.TemplateHeight - 8
+                                    RadiusBottomLeft: =14
+                                    RadiusBottomRight: =14
+                                    RadiusTopLeft: =14
+                                    RadiusTopRight: =14
+                                    Width: =Parent.TemplateWidth - 8
+                                    X: =2
+                                    Y: =2
+                                  Children:
+                                    - lblPipeQualifiedDealName:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cText
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =22
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =14
+                                          Text: =ThisItem.Name
+                                          Width: =Parent.Width - 20
+                                          X: =10
+                                          Y: =8
+                                    - lblPipeQualifiedCompany:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cMuted
+                                          Font: =cFont
+                                          Height: =18
+                                          Size: =11
+                                          Text: =ThisItem.Company
+                                          Width: =Parent.Width - 20
+                                          X: =10
+                                          Y: =30
+                                    - lblPipeQualifiedValue:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cStageQualified
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Bold
+                                          Height: =25
+                                          Size: =19
+                                          Text: =FmtINR(ThisItem.Value)
+                                          Width: =Parent.Width - 70
+                                          X: =10
+                                          Y: =50
+                                    - lblPipeQualifiedOwner:
+                                        Control: Label
+                                        Properties:
+                                          Align: =Align.Center
+                                          Color: =cWhite
+                                          Fill: =cStageQualified
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =28
+                                          Size: =12
+                                          Text: =ThisItem.Owner
+                                          Width: =36
+                                          X: =Parent.Width - 48
+                                          Y: =50
+                                    - btnPipeQualifiedBack:
+                                        Control: Classic/Button
+                                        Properties:
+                                          BorderColor: =cBorder
+                                          BorderThickness: =1
+                                          Color: =cMuted
+                                          DisplayMode: =DisplayMode.Disabled
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          Height: =36
+                                          Size: =11
+                                          Text: ="Back"
+                                          Width: =(Parent.Width - 24) / 2
+                                          X: =8
+                                          Y: =88
+                                    - btnPipeQualifiedNext:
+                                        Control: Classic/Button
+                                        Properties:
+                                          BorderThickness: =0
+                                          Color: =cWhite
+                                          Fill: =cBlue
+                                          Font: =cFont
+                                          Height: =36
+                                          OnSelect: |-
+                                            =Patch(colDeals, LookUp(colDeals, DealId = ThisItem.DealId), {Stage: "Proposal"})
+                                          Size: =11
+                                          Text: ="Next"
+                                          Width: =(Parent.Width - 24) / 2
+                                          X: =12 + (Parent.Width - 24) / 2
+                                          Y: =88
+                        - lblPipeQualifiedEmpty:
+                            Control: Label
+                            Properties:
+                              Align: =Align.Center
+                              Color: =cMuted
+                              Font: =cFont
+                              Height: =30
+                              Size: =12
+                              Text: ="No deals here."
+                              Visible: =galPipeQualified.AllItemsCount = 0
+                              Width: =Parent.Width - 28
+                              X: =14
+                              Y: =78
+                  - conPipeProposal:
+                      Control: GroupContainer
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =cStageProposalPanel
+                        FillPortions: =0
+                        Height: =Parent.Height
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =248
+                        RadiusBottomLeft: =16
+                        RadiusBottomRight: =16
+                        RadiusTopLeft: =16
+                        RadiusTopRight: =16
+                        Width: =If(App.Width < 900, 248, (Parent.Width - 48) / 4)
+                      Children:
+                        - lblPipeProposalHead:
+                            Control: Label
+                            Properties:
+                              Color: =cStageProposal
+                              Font: =cFont
+                              FontWeight: =FontWeight.Semibold
+                              Height: =22
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =15
+                              Text: ="Proposal"
+                              Width: =Parent.Width - 28
+                              X: =14
+                              Y: =10
+                        - lblPipeProposalTotals:
+                            Control: Label
+                            Properties:
+                              Color: =cMuted
+                              Font: =cFont
+                              Height: =20
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =10
+                              Text: =CountRows(Filter(colDeals, Stage = "Proposal")) & " deals · " & FmtINR(Sum(Filter(colDeals, Stage = "Proposal"), Value)) & " · 50% chance"
+                              Width: =Parent.Width - 28
+                              X: =14
+                              Y: =33
+                        - galPipeProposal:
+                            Control: Gallery
+                            Variant: Vertical
+                            Properties:
+                              AccessibleLabel: ="Proposal deals"
+                              Height: =Parent.Height - 68
+                              Items: =Filter(colDeals, Stage = "Proposal")
+                              TabIndex: =0
+                              TemplateSize: =140
+                              Width: =Parent.Width - 20
+                              X: =10
+                              Y: =58
+                            Children:
+                              - conPipeProposalCard:
+                                  Control: GroupContainer
+                                  Variant: ManualLayout
+                                  Properties:
+                                    BorderColor: =cBorder
+                                    BorderThickness: =1
+                                    DropShadow: =DropShadow.Semilight
+                                    Fill: =cWhite
+                                    Height: =Parent.TemplateHeight - 8
+                                    RadiusBottomLeft: =14
+                                    RadiusBottomRight: =14
+                                    RadiusTopLeft: =14
+                                    RadiusTopRight: =14
+                                    Width: =Parent.TemplateWidth - 8
+                                    X: =2
+                                    Y: =2
+                                  Children:
+                                    - lblPipeProposalDealName:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cText
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =22
+                                          Size: =14
+                                          Text: =ThisItem.Name
+                                          Width: =Parent.Width - 20
+                                          X: =10
+                                          Y: =8
+                                    - lblPipeProposalCompany:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cMuted
+                                          Font: =cFont
+                                          Height: =18
+                                          Size: =11
+                                          Text: =ThisItem.Company
+                                          Width: =Parent.Width - 20
+                                          X: =10
+                                          Y: =30
+                                    - lblPipeProposalValue:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cStageProposal
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Bold
+                                          Height: =25
+                                          Size: =19
+                                          Text: =FmtINR(ThisItem.Value)
+                                          Width: =Parent.Width - 70
+                                          X: =10
+                                          Y: =50
+                                    - lblPipeProposalOwner:
+                                        Control: Label
+                                        Properties:
+                                          Align: =Align.Center
+                                          Color: =cWhite
+                                          Fill: =cStageProposal
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =28
+                                          Size: =12
+                                          Text: =ThisItem.Owner
+                                          Width: =36
+                                          X: =Parent.Width - 48
+                                          Y: =50
+                                    - btnPipeProposalBack:
+                                        Control: Classic/Button
+                                        Properties:
+                                          BorderColor: =cBorder
+                                          BorderThickness: =1
+                                          Color: =cText
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          Height: =36
+                                          OnSelect: |-
+                                            =Patch(colDeals, LookUp(colDeals, DealId = ThisItem.DealId), {Stage: "Qualified"})
+                                          Size: =11
+                                          Text: ="Back"
+                                          Width: =(Parent.Width - 24) / 2
+                                          X: =8
+                                          Y: =88
+                                    - btnPipeProposalNext:
+                                        Control: Classic/Button
+                                        Properties:
+                                          BorderThickness: =0
+                                          Color: =cWhite
+                                          Fill: =cBlue
+                                          Font: =cFont
+                                          Height: =36
+                                          OnSelect: |-
+                                            =Patch(colDeals, LookUp(colDeals, DealId = ThisItem.DealId), {Stage: "Negotiation"})
+                                          Size: =11
+                                          Text: ="Next"
+                                          Width: =(Parent.Width - 24) / 2
+                                          X: =12 + (Parent.Width - 24) / 2
+                                          Y: =88
+                        - lblPipeProposalEmpty:
+                            Control: Label
+                            Properties:
+                              Align: =Align.Center
+                              Color: =cMuted
+                              Font: =cFont
+                              Height: =30
+                              Size: =12
+                              Text: ="No deals here."
+                              Visible: =galPipeProposal.AllItemsCount = 0
+                              Width: =Parent.Width - 28
+                              X: =14
+                              Y: =78
+                  - conPipeNegotiation:
+                      Control: GroupContainer
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =cStageNegotiationPanel
+                        FillPortions: =0
+                        Height: =Parent.Height
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =248
+                        RadiusBottomLeft: =16
+                        RadiusBottomRight: =16
+                        RadiusTopLeft: =16
+                        RadiusTopRight: =16
+                        Width: =If(App.Width < 900, 248, (Parent.Width - 48) / 4)
+                      Children:
+                        - lblPipeNegotiationHead:
+                            Control: Label
+                            Properties:
+                              Color: =cStageNegotiation
+                              Font: =cFont
+                              FontWeight: =FontWeight.Semibold
+                              Height: =22
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =15
+                              Text: ="Negotiation"
+                              Width: =Parent.Width - 28
+                              X: =14
+                              Y: =10
+                        - lblPipeNegotiationTotals:
+                            Control: Label
+                            Properties:
+                              Color: =cMuted
+                              Font: =cFont
+                              Height: =20
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =10
+                              Text: =CountRows(Filter(colDeals, Stage = "Negotiation")) & " deals · " & FmtINR(Sum(Filter(colDeals, Stage = "Negotiation"), Value)) & " · 75% chance"
+                              Width: =Parent.Width - 28
+                              X: =14
+                              Y: =33
+                        - galPipeNegotiation:
+                            Control: Gallery
+                            Variant: Vertical
+                            Properties:
+                              AccessibleLabel: ="Negotiation deals"
+                              Height: =Parent.Height - 68
+                              Items: =Filter(colDeals, Stage = "Negotiation")
+                              TabIndex: =0
+                              TemplateSize: =140
+                              Width: =Parent.Width - 20
+                              X: =10
+                              Y: =58
+                            Children:
+                              - conPipeNegotiationCard:
+                                  Control: GroupContainer
+                                  Variant: ManualLayout
+                                  Properties:
+                                    BorderColor: =cBorder
+                                    BorderThickness: =1
+                                    DropShadow: =DropShadow.Semilight
+                                    Fill: =cWhite
+                                    Height: =Parent.TemplateHeight - 8
+                                    RadiusBottomLeft: =14
+                                    RadiusBottomRight: =14
+                                    RadiusTopLeft: =14
+                                    RadiusTopRight: =14
+                                    Width: =Parent.TemplateWidth - 8
+                                    X: =2
+                                    Y: =2
+                                  Children:
+                                    - lblPipeNegotiationDealName:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cText
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =22
+                                          Size: =14
+                                          Text: =ThisItem.Name
+                                          Width: =Parent.Width - 20
+                                          X: =10
+                                          Y: =8
+                                    - lblPipeNegotiationCompany:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cMuted
+                                          Font: =cFont
+                                          Height: =18
+                                          Size: =11
+                                          Text: =ThisItem.Company
+                                          Width: =Parent.Width - 20
+                                          X: =10
+                                          Y: =30
+                                    - lblPipeNegotiationValue:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cStageNegotiation
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Bold
+                                          Height: =25
+                                          Size: =19
+                                          Text: =FmtINR(ThisItem.Value)
+                                          Width: =Parent.Width - 70
+                                          X: =10
+                                          Y: =50
+                                    - lblPipeNegotiationOwner:
+                                        Control: Label
+                                        Properties:
+                                          Align: =Align.Center
+                                          Color: =cWhite
+                                          Fill: =cStageNegotiation
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =28
+                                          Size: =12
+                                          Text: =ThisItem.Owner
+                                          Width: =36
+                                          X: =Parent.Width - 48
+                                          Y: =50
+                                    - btnPipeNegotiationBack:
+                                        Control: Classic/Button
+                                        Properties:
+                                          BorderColor: =cBorder
+                                          BorderThickness: =1
+                                          Color: =cText
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          Height: =36
+                                          OnSelect: |-
+                                            =Patch(colDeals, LookUp(colDeals, DealId = ThisItem.DealId), {Stage: "Proposal"})
+                                          Size: =11
+                                          Text: ="Back"
+                                          Width: =(Parent.Width - 24) / 2
+                                          X: =8
+                                          Y: =88
+                                    - btnPipeNegotiationNext:
+                                        Control: Classic/Button
+                                        Properties:
+                                          BorderThickness: =0
+                                          Color: =cWhite
+                                          Fill: =cBlue
+                                          Font: =cFont
+                                          Height: =36
+                                          OnSelect: |-
+                                            =Patch(colDeals, LookUp(colDeals, DealId = ThisItem.DealId), {Stage: "Won"});
+                                            Set(varToast, "Deal won: " & ThisItem.Name)
+                                          Size: =11
+                                          Text: ="Next"
+                                          Width: =(Parent.Width - 24) / 2
+                                          X: =12 + (Parent.Width - 24) / 2
+                                          Y: =88
+                        - lblPipeNegotiationEmpty:
+                            Control: Label
+                            Properties:
+                              Align: =Align.Center
+                              Color: =cMuted
+                              Font: =cFont
+                              Height: =30
+                              Size: =12
+                              Text: ="No deals here."
+                              Visible: =galPipeNegotiation.AllItemsCount = 0
+                              Width: =Parent.Width - 28
+                              X: =14
+                              Y: =78
+                  - conPipeWon:
+                      Control: GroupContainer
+                      Variant: ManualLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =cStageWonPanel
+                        FillPortions: =0
+                        Height: =Parent.Height
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =248
+                        RadiusBottomLeft: =16
+                        RadiusBottomRight: =16
+                        RadiusTopLeft: =16
+                        RadiusTopRight: =16
+                        Width: =If(App.Width < 900, 248, (Parent.Width - 48) / 4)
+                      Children:
+                        - lblPipeWonHead:
+                            Control: Label
+                            Properties:
+                              Color: =cStageWon
+                              Font: =cFont
+                              FontWeight: =FontWeight.Semibold
+                              Height: =22
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =15
+                              Text: ="Won"
+                              Width: =Parent.Width - 28
+                              X: =14
+                              Y: =10
+                        - lblPipeWonTotals:
+                            Control: Label
+                            Properties:
+                              Color: =cMuted
+                              Font: =cFont
+                              Height: =20
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =10
+                              Text: =CountRows(Filter(colDeals, Stage = "Won")) & " deals · " & FmtINR(Sum(Filter(colDeals, Stage = "Won"), Value)) & " · 100% chance"
+                              Width: =Parent.Width - 28
+                              X: =14
+                              Y: =33
+                        - galPipeWon:
+                            Control: Gallery
+                            Variant: Vertical
+                            Properties:
+                              AccessibleLabel: ="Won deals"
+                              Height: =Parent.Height - 68
+                              Items: =Filter(colDeals, Stage = "Won")
+                              TabIndex: =0
+                              TemplateSize: =140
+                              Width: =Parent.Width - 20
+                              X: =10
+                              Y: =58
+                            Children:
+                              - conPipeWonCard:
+                                  Control: GroupContainer
+                                  Variant: ManualLayout
+                                  Properties:
+                                    BorderColor: =cBorder
+                                    BorderThickness: =1
+                                    DropShadow: =DropShadow.Semilight
+                                    Fill: =cWhite
+                                    Height: =Parent.TemplateHeight - 8
+                                    RadiusBottomLeft: =14
+                                    RadiusBottomRight: =14
+                                    RadiusTopLeft: =14
+                                    RadiusTopRight: =14
+                                    Width: =Parent.TemplateWidth - 8
+                                    X: =2
+                                    Y: =2
+                                  Children:
+                                    - lblPipeWonDealName:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cText
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =22
+                                          Size: =14
+                                          Text: =ThisItem.Name
+                                          Width: =Parent.Width - 20
+                                          X: =10
+                                          Y: =8
+                                    - lblPipeWonCompany:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cMuted
+                                          Font: =cFont
+                                          Height: =18
+                                          Size: =11
+                                          Text: =ThisItem.Company
+                                          Width: =Parent.Width - 20
+                                          X: =10
+                                          Y: =30
+                                    - lblPipeWonValue:
+                                        Control: Label
+                                        Properties:
+                                          Color: =cStageWon
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Bold
+                                          Height: =25
+                                          Size: =19
+                                          Text: =FmtINR(ThisItem.Value)
+                                          Width: =Parent.Width - 70
+                                          X: =10
+                                          Y: =50
+                                    - lblPipeWonOwner:
+                                        Control: Label
+                                        Properties:
+                                          Align: =Align.Center
+                                          Color: =cWhite
+                                          Fill: =cStageWon
+                                          Font: =cFont
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =28
+                                          Size: =12
+                                          Text: =ThisItem.Owner
+                                          Width: =36
+                                          X: =Parent.Width - 48
+                                          Y: =50
+                                    - btnPipeWonBack:
+                                        Control: Classic/Button
+                                        Properties:
+                                          BorderColor: =cBorder
+                                          BorderThickness: =1
+                                          Color: =cText
+                                          Fill: =cWhite
+                                          Font: =cFont
+                                          Height: =36
+                                          OnSelect: |-
+                                            =Patch(colDeals, LookUp(colDeals, DealId = ThisItem.DealId), {Stage: "Negotiation"})
+                                          Size: =11
+                                          Text: ="Back"
+                                          Width: =(Parent.Width - 24) / 2
+                                          X: =8
+                                          Y: =88
+                                    - btnPipeWonNext:
+                                        Control: Classic/Button
+                                        Properties:
+                                          BorderThickness: =0
+                                          Color: =cWhite
+                                          DisplayMode: =DisplayMode.Disabled
+                                          Fill: =cBlue
+                                          Font: =cFont
+                                          Height: =36
+                                          Size: =11
+                                          Text: ="Next"
+                                          Width: =(Parent.Width - 24) / 2
+                                          X: =12 + (Parent.Width - 24) / 2
+                                          Y: =88
+                        - lblPipeWonEmpty:
+                            Control: Label
+                            Properties:
+                              Align: =Align.Center
+                              Color: =cMuted
+                              Font: =cFont
+                              Height: =30
+                              Size: =12
+                              Text: ="No deals here."
+                              Visible: =galPipeWon.AllItemsCount = 0
+                              Width: =Parent.Width - 28
+                              X: =14
+                              Y: =78
+            - tmrPipeToast:
+                Control: Timer
+                Properties:
+                  Duration: =2200
+                  Height: =1
+                  OnTimerEnd: =Set(varToast, "")
+                  Start: =!IsBlank(varToast)
+                  Visible: =false
+                  Width: =1
+            - lblPipeToast:
+                Control: Label
+                Properties:
+                  Align: =Align.Center
+                  Color: =cWhite
+                  Fill: =cNavy
+                  Font: =cFont
+                  FontWeight: =FontWeight.Semibold
+                  Live: =Live.Polite
+                  Text: =varToast
+                  Visible: =!IsBlank(varToast)
+                  Width: =320
+                  X: =(Parent.Width - 320) / 2
+                  Y: =Parent.Height - 56
